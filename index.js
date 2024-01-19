@@ -44,13 +44,19 @@ app.get("/cart", (req, res) => {
     res.send("View your lists");
 });
 
-app.get("/cart/proceed_to_payment", (req, res) => {
-    res.send("Payment");
-});
-
 // User Reviews
 app.get("/reviews", (req, res) => {
     res.send("Give your feedback");
+});
+
+// Checkout Process
+app.get("/checkout", (req, res) => {
+    res.send("Here is your bill");
+});
+
+// Special Offers and Discounts
+app.get("/offers", (req, res) => {
+    res.send("Here are todays offers");
 });
 
 // For errors
