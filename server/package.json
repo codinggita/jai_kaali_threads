@@ -1,0 +1,16 @@
+{
+  "dependencies": {
+    "axios": "^1.6.5",
+    "express": "^4.18.2"
+  },
+  "name": "jai_kaali_threads",
+  "description": "- User Registration and Authentication\r - Product Catalog\r - Shopping Cart\r - User Reviews\r - Search and Filters\r - Checkout Process\r - Special Offers and Discounts",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
