@@ -48,7 +48,7 @@ app.get("/cart/add", (req, res) => {
 });
 
 // Remove from Cart
-app.get("/cart/add", (req, res) => {
+app.get("/cart/remove", (req, res) => {
     // logic to remove products from the shopping cart
     res.send("Remove products from your cart");
 });
