@@ -2,19 +2,70 @@ import express from 'express'
 const app = express();
 const port = 5000;
 
+// Middleware to parse JSON body in requests
+app.use(express.json());
+
 // Start the server
 app.listen(port, () => {
     console.log(`App running on port ${port}`);
 });
 
-// Login
-app.get("/login", (req, res) => {
-    res.send("Enter your credentials!");
+// Sign Up (POST)
+app.post("/signup", (req, res) => {
+    // Implement logic to create a new user account
+    const { username, email, password } = req.body;
+
+    // Validate the inputs
+    if (!username || !email || !password) {
+        res.status(400).json(
+            { error: "Incomplete data. Please provide username, email, and password." }
+        );
+        return;
+    }
+
+    // Save the user to the database or perform necessary actions
+    // ...
+
+    res.json({ success: true, message: "User registered successfully!" });
 });
 
-// SignUp
-app.get("/signup", (req, res) => {
-    res.send("Enter your credentials and password!");
+// Log In (POST)
+app.post("/login", (req, res) => {
+    // Implement logic to authenticate the user
+    const { username, password } = req.body;
+
+    // Validate the inputs
+    if (!username || !password) {
+        res.status(400).json(
+            { error: "Incomplete data. Please provide username and password." }
+        );
+        return;
+    }
+
+    // Verify credentials and generate a token or session (you may want to use a library for this)
+    // ...
+
+    res.json({ success: true, message: "Login successful!" });
+});
+
+// Get User Details (GET)
+app.get("/user/:userId", (req, res) => {
+    // Implement logic to fetch user details
+    const userId = req.params.userId;
+    
+    // Fetch user details from the database or wherever they are stored
+    // ...
+
+    // res.json({ user: { userId, ... } });
+});
+
+// Log Out (POST)
+app.post("/logout", (req, res) => {
+    // Implement logic to log the user out
+    // Destroy the session or token, clear cookies, etc.
+    // ...
+
+    res.json({ success: true, message: "Logout successful!" });
 });
 
 /* Product Catalog */
