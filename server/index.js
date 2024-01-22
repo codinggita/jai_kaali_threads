@@ -191,9 +191,65 @@ app.delete("/cart/clear", (req, res) => {
 });
 
 /* User Reviews */
+// Retrieve Reviews for All Products
 app.get("/reviews", (req, res) => {
-    res.send("Give your feedback");
+    // Implement logic to fetch and return all reviews for all products
+    // res.json({ reviews: [...] });
 });
+
+// Retrieve Reviews for a Specific Product
+app.get("/reviews/:productId", (req, res) => {
+    // Implement logic to fetch and return reviews for a specific product
+    const productId = req.params.productId;
+    // res.json({ reviews: [...], productId });
+});
+
+// Submit a Review for a Product (POST)
+app.post("/reviews/submit", (req, res) => {
+    // Implement logic to handle the submission of a review
+    const { productId, rating, comment } = req.body;
+
+    // Validate the inputs
+    if (!productId || !rating || !comment) {
+        res.status(400).json({ error: "Incomplete data. Please provide productId, rating, and comment." });
+        return;
+    }
+
+    // Save the review to the database or perform necessary actions
+    // ...
+
+    res.json({ success: true, message: "Review submitted successfully!" });
+});
+
+// Update a Review (PUT or PATCH)
+app.put("/reviews/:reviewId", (req, res) => {
+    // Implement logic to update a review
+    const reviewId = req.params.reviewId;
+    const { rating, comment } = req.body;
+
+    // Validate the inputs
+    if (!rating || !comment) {
+        res.status(400).json({ error: "Incomplete data. Please provide rating and comment." });
+        return;
+    }
+
+    // Update the review in the database or perform necessary actions
+    // ...
+
+    res.json({ success: true, message: "Review updated successfully!" });
+});
+
+// Delete a Review (DELETE)
+app.delete("/reviews/:reviewId", (req, res) => {
+    // Implement logic to delete a review
+    const reviewId = req.params.reviewId;
+
+    // Delete the review from the database or perform necessary actions
+    // ...
+
+    res.json({ success: true, message: "Review deleted successfully!" });
+});
+
 
 // Checkout Process
 app.get("/checkout", (req, res) => {
