@@ -200,17 +200,49 @@ app.put("/products/:productId", (req, res) => {
     // Implement logic to handle the update of a specific product
     const updatedProductData = req.body;
 
-    // Validate the inputs and check if the product exists (add more validation as needed)
+    // Validate the inputs and check if the product exists
     if (!updatedProductData) {
         res.status(400).json({ error: "Invalid data. Please provide updated product information." });
         return;
     }
 
-    // Update the product details in the database or perform necessary actions
-    // ...
+    // Assume you have a function to check if a product with the given ID exists in your database
+    const existingProduct = getProductById(productId);
 
-    res.json({ success: true, message: "Product details updated successfully!" });
+    if (!existingProduct) {
+        res.status(404).json({ error: "Product not found." });
+        return;
+    }
+
+    // Update the product details in the database or perform necessary actions
+    // Here, you might use an ORM like Mongoose or Sequelize to interact with your database
+    // Example using Mongoose (for MongoDB):
+    // ProductModel.findByIdAndUpdate(productId, updatedProductData, { new: true })
+    //   .then(updatedProduct => {
+    //       res.json({ success: true, message: "Product details updated successfully!", updatedProduct });
+    //   })
+    //   .catch(error => {
+    //       res.status(500).json({ error: "Error updating product details." });
+    //   });
+
+    // For demonstration purposes, let's assume the update was successful
+    const updatedProduct = { ...existingProduct, ...updatedProductData };
+
+    res.json({ success: true, message: "Product details updated successfully!", updatedProduct });
 });
+
+// Dummy function to simulate fetching a product from the database
+function getProductById(productId) {
+    // Replace this with actual database query logic
+    // For now, returning a dummy product object
+    return {
+        productId: productId,
+        name: "Updated Product",
+        description: "Updated product description",
+        price: 29.99,
+        // ... other product details
+    };
+}
 
 // Delete a Product
 app.delete("/products/:productId", (req, res) => {
