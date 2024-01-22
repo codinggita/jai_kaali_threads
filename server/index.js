@@ -69,7 +69,6 @@ app.post("/logout", (req, res) => {
 });
 
 /* Product Catalog */
-
 // Get All Products
 app.get("/products", (req, res) => {
     // Implement logic to fetch and return a list of all products
@@ -221,8 +220,8 @@ app.post("/reviews/submit", (req, res) => {
     res.json({ success: true, message: "Review submitted successfully!" });
 });
 
-// Update a Review (PUT or PATCH)
-app.put("/reviews/:reviewId", (req, res) => {
+// Update a Review (PATCH)
+app.patch("/reviews/:reviewId", (req, res) => {
     // Implement logic to update a review
     const reviewId = req.params.reviewId;
     const { rating, comment } = req.body;
@@ -275,8 +274,8 @@ app.post("/checkout/process", (req, res) => {
     res.json({ success: true, message: "Checkout successful!" });
 });
 
-// Update Shipping Address (PUT or PATCH)
-app.put("/checkout/update-shipping", (req, res) => {
+// Update Shipping Address (PATCH)
+app.patch("/checkout/update-shipping", (req, res) => {
     // Implement logic to update the shipping address
     const { shippingAddress } = req.body;
 
@@ -286,7 +285,7 @@ app.put("/checkout/update-shipping", (req, res) => {
     res.json({ success: true, message: "Shipping address updated successfully!" });
 });
 
-// Apply Discount Code (POST or PATCH)
+// Apply Discount Code (POST)
 app.post("/checkout/apply-discount", (req, res) => {
     // Implement logic to apply a discount code
     const { discountCode } = req.body;
