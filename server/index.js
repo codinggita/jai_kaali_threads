@@ -306,10 +306,66 @@ app.delete("/checkout/cancel", (req, res) => {
 });
 
 
-// Special Offers and Discounts
+/* Special Offers and Discounts */
+// Get All Offers
 app.get("/offers", (req, res) => {
-    res.send("Here are todays offers");
+    // Implement logic to fetch and return all offers
+    // res.json({ offers: [...] });
 });
+
+// Get Details of a Specific Offer
+app.get("/offers/:offerId", (req, res) => {
+    // Implement logic to fetch and return details of a specific offer
+    const offerId = req.params.offerId;
+    // res.json({ offerDetails: {...}, offerId });
+});
+
+// Create a New Offer
+app.post("/offers/create", (req, res) => {
+    // Implement logic to create a new offer
+    const { title, description, discountPercentage, startDate, endDate } = req.body;
+
+    // Validate the inputs
+    if (!title || !description || !discountPercentage || !startDate || !endDate) {
+        res.status(400).json({ error: "Incomplete data. Please provide all required fields." });
+        return;
+    }
+
+    // Save the new offer to the database or perform necessary actions
+    // ...
+
+    res.json({ success: true, message: "Offer created successfully!" });
+});
+
+// Update an Existing Offer
+app.put("/offers/update/:offerId", (req, res) => {
+    // Implement logic to update details of an existing offer
+    const offerId = req.params.offerId;
+    const { title, description, discountPercentage, startDate, endDate } = req.body;
+
+    // Validate the inputs
+    if (!title && !description && !discountPercentage && !startDate && !endDate) {
+        res.status(400).json({ error: "No data provided for update. Please provide at least one field to update." });
+        return;
+    }
+
+    // Update the offer in the database or perform necessary actions
+    // ...
+
+    res.json({ success: true, message: "Offer updated successfully!" });
+});
+
+// Delete an Existing Offer
+app.delete("/offers/delete/:offerId", (req, res) => {
+    // Implement logic to delete an existing offer
+    const offerId = req.params.offerId;
+
+    // Delete the offer from the database or perform necessary actions
+    // ...
+
+    res.json({ success: true, message: "Offer deleted successfully!" });
+});
+
 
 // For errors
 app.get("/*", (req, res) => {
