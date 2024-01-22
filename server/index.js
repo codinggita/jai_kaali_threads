@@ -109,21 +109,46 @@ app.post("/logout", (req, res) => {
 // Get All Products
 app.get("/products", (req, res) => {
     // Implement logic to fetch and return a list of all products
-    // res.json({ products: [...] });
+    res.json({ products });
 });
 
 // Get Products by Category
 app.get("/products/category/:category", (req, res) => {
     const category = req.params.category;
-    // Implement logic to fetch and return products based on category
-    // res.json({ products: [...] });
+    
+    // Filter products based on the category
+    const filteredProducts = products.filter(
+        product => product.category.toLowerCase() === category.toLowerCase()
+    );
+
+    if (filteredProducts.length === 0) {
+        // If no products found for the given category, return an appropriate response
+        res.status(404).json(
+            { error: "No products found for the specified category." }
+        );
+    } else {
+        // Return the filtered products
+        res.json({ products: filteredProducts });
+    }
 });
 
 // Get Product Details
 app.get("/products/:productId", (req, res) => {
     const productId = req.params.productId;
-    // Implement logic to fetch and return details for a specific product
-    // res.json({ productDetails: { productId, ... } });
+    
+    // Find the product in the data
+    const product = productsData.find(
+        (p) => p.productId === productId
+    );
+
+    if (!product) {
+        return res.status(404).json(
+            { error: "Product not found" }
+        );
+    }
+
+    // If found, return the product details
+    res.json({ productDetails: product });
 });
 
 // Add a New Product
@@ -139,11 +164,19 @@ app.post("/products", (req, res) => {
         return;
     }
 
-    // Save the new product to the database or perform necessary actions
-    // ...
+    const newProduct = {
+        // You may need a function to generate a unique product ID
+        id: generateProductId(), name, category, price, description,
+        // Additional fields as needed
+    };
+    products.push(newProduct);
 
-    res.json({ success: true, message: "Product added successfully!" });
+    res.json({ success: true, message: "Product added successfully!", product: newProduct });
 });
+
+function generateProductId() {
+    return Math.random().toString(36).substring(7);
+}
 
 // Update Product Details
 app.put("/products/:productId", (req, res) => {
@@ -166,16 +199,46 @@ app.put("/products/:productId", (req, res) => {
 // Delete a Product
 app.delete("/products/:productId", (req, res) => {
     const productId = req.params.productId;
-    // Implement logic to handle the deletion of a specific product
 
     // Check if the product exists (add more validation as needed)
-    // ...
+    const existingProduct = getProductById(productId);
+
+    if (!existingProduct) {
+        res.status(404).json({ error: "Product not found!" });
+        return;
+    }
 
     // Delete the product from the database or perform necessary actions
-    // ...
+    const deletedProduct = deleteProduct(productId);
+
+    if (!deletedProduct) {
+        res.status(500).json({ error: "Error deleting the product. Please try again later." });
+        return;
+    }
 
     res.json({ success: true, message: "Product deleted successfully!" });
 });
+
+// Example Functions (Replace these with your actual database operations)
+
+// Function to Get a Product by ID
+function getProductById(productId) {
+    // Implement logic to fetch the product from the database by ID
+    // Return null if not found, otherwise return the product object
+    // Example: return db.products.find(product => product.id === productId);
+}
+
+// Function to Delete a Product by ID
+function deleteProduct(productId) {
+    // Implement logic to delete the product from the database by ID
+    // Return the deleted product object or null if an error occurs
+    // Example: const index = db.products.findIndex(product => product.id === productId);
+    //          if (index !== -1) {
+    //              const deletedProduct = db.products.splice(index, 1)[0];
+    //              return deletedProduct;
+    //          }
+    //          return null;
+}
 
 /* Shopping cart */
 // Get Shopping Cart
