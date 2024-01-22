@@ -474,57 +474,133 @@ app.delete("/reviews/:reviewId", (req, res) => {
 /* Checkout Process */
 // Get Cart Items for Checkout
 app.get("/checkout/cart", (req, res) => {
-    // Implement logic to fetch and return items in the shopping cart for checkout
-    // res.json({ cartItems: [...] });
+    // Assuming you have a function to calculate the total price and fetch cart items
+    const cartItems = getCartItems();
+    const totalPrice = calculateTotalPrice(cartItems);
+
+    res.json({ cartItems, totalPrice });
 });
+
+// Function to get cart items
+function getCartItems() {
+    // Implement logic to fetch and return items in the shopping cart
+    // You might retrieve the cart data from the 'shoppingCart' array or a database
+    // ...
+
+    return shoppingCart;
+}
+
+// Function to calculate the total price of items in the cart
+function calculateTotalPrice(cartItems) {
+    // Implement logic to calculate the total price based on the cart items
+    // You might iterate through the cartItems and sum up the prices
+    // ...
+
+    return total;
+}
 
 // Get Checkout Summary
 app.get("/checkout/summary", (req, res) => {
-    // Implement logic to fetch and return a summary of selected items for checkout
-    // res.json({ checkoutSummary: [...] });
+    // Calculate the total price based on the items in the shopping cart
+    const totalPrice = shoppingCart.reduce((total, item) => total + item.price, 0);
+
+    // You might have additional logic for applying discounts, taxes, etc.
+
+    // Prepare the checkout summary
+    const checkoutSummary = {
+        items: shoppingCart,
+        total: totalPrice,
+        // Add more details as needed
+    };
+
+    res.json({ checkoutSummary });
 });
 
 // Process Checkout (POST)
 app.post("/checkout/process", (req, res) => {
-    // Implement logic to handle the checkout process
+    // Extract relevant information from the request body
     const { paymentMethod, shippingAddress, items } = req.body;
 
-    // Validate the inputs and handle the checkout process
+    // Validate the inputs
+    if (!paymentMethod || !shippingAddress || !items || items.length === 0) {
+        res.status(400).json({ error: "Incomplete data. Please provide paymentMethod, shippingAddress, and at least one item." });
+        return;
+    }
+
+    // Perform additional validations based on your business logic
+    // For example, validate the payment method, check if items are in stock, etc.
     // ...
 
-    res.json({ success: true, message: "Checkout successful!" });
+    // Calculate the total amount based on the items in the cart
+    const totalAmount = calculateTotalAmount(items);
+
+    // Process the payment using the chosen payment method
+    const paymentResult = processPayment(paymentMethod, totalAmount);
+
+    // If the payment is successful, proceed with order fulfillment
+    if (paymentResult.success) {
+        // Implement logic to update inventory, generate an order, and perform other necessary actions
+        const orderDetails = fulfillOrder(items, shippingAddress);
+
+        // Return a success message with order details
+        res.json({ success: true, message: "Checkout successful!", orderDetails });
+    } else {
+        // If the payment fails, return an error message
+        res.status(400).json({ error: "Payment failed. Please check your payment details and try again." });
+    }
 });
+
+// Function to calculate the total amount based on items in the cart
+function calculateTotalAmount(items) {
+    // Implement logic to calculate the total amount based on item prices and quantities
+    // ...
+    return totalAmount;
+}
+
+// Function to process the payment
+function processPayment(paymentMethod, totalAmount) {
+    // Implement logic to process the payment using the chosen payment method
+    // ...
+    return { success: true, paymentResult: "Payment processed successfully" };
+}
+
+// Function to fulfill the order
+function fulfillOrder(items, shippingAddress) {
+    // Implement logic to update inventory, generate an order, and perform other necessary actions
+    // ...
+    const orderDetails = {
+        orderId: "123456",
+        items,
+        shippingAddress,
+        // Additional order details
+    };
+    return orderDetails;
+}
 
 // Update Shipping Address (PATCH)
 app.patch("/checkout/update-shipping", (req, res) => {
-    // Implement logic to update the shipping address
+    // Assuming you have a user authentication mechanism in place, retrieve the user ID from the authenticated user's session
+    const userId = req.user.id;
+
+    // Extract the new shipping address from the request body
     const { shippingAddress } = req.body;
 
-    // Validate the inputs and update the shipping address
-    // ...
+    // Validate the inputs
+    if (!shippingAddress) {
+        res.status(400).json({ error: "Please provide a new shipping address." });
+        return;
+    }
+
+    // Assuming you have a database or data store, update the user's shipping address
+    // Replace the following logic with your actual data update logic
+
+    // Example: Update the shipping address in the database for the user with the given ID
+    // database.updateShippingAddress(userId, shippingAddress);
+
+    // End of example logic
 
     res.json({ success: true, message: "Shipping address updated successfully!" });
 });
-
-// Apply Discount Code (POST)
-app.post("/checkout/apply-discount", (req, res) => {
-    // Implement logic to apply a discount code
-    const { discountCode } = req.body;
-
-    // Validate the discount code and apply it to the checkout summary
-    // ...
-
-    res.json({ success: true, message: "Discount applied successfully!" });
-});
-
-// Cancel Checkout (DELETE)
-app.delete("/checkout/cancel", (req, res) => {
-    // Implement logic to cancel the checkout process
-    // ...
-
-    res.json({ success: true, message: "Checkout canceled!" });
-});
-
 
 /* Special Offers and Discounts */
 // Get All Offers
