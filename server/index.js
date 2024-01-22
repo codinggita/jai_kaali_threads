@@ -24,6 +24,20 @@ const productsData = [
 // in-memory shopping cart array
 let shoppingCart = [];
 
+// Example array to store reviews
+const reviewsDatabase = [
+    { productId: 1, rating: 4, comment: "Great product!" },
+    { productId: 2, rating: 5, comment: "Excellent quality!" },
+    // ... more reviews
+];
+
+const reviewsData = [
+    { productId: 1, reviewId: 101, rating: 4, comment: "Great product!" },
+    { productId: 1, reviewId: 102, rating: 5, comment: "Excellent quality!" },
+    { productId: 2, reviewId: 103, rating: 3, comment: "Decent product." },
+    // Add more reviews as needed
+];
+
 // Start the server
 app.listen(port, () => {
     console.log(`App running on port ${port}`);
