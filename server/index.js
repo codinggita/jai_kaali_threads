@@ -256,8 +256,8 @@ function deleteProduct(productId) {
 /* Shopping cart */
 // Get Shopping Cart
 app.get("/cart", (req, res) => {
-    // Implement logic to fetch and return items in the shopping cart
-    // res.json({ cartItems: [...] });
+    // Return the current state of the shopping cart
+    res.json({ cartItems: shoppingCart });
 });
 
 // Add to Cart
@@ -271,10 +271,20 @@ app.post("/cart/add", (req, res) => {
         return;
     }
 
-    // Add the product to the cart (you would need to implement this logic)
-    // ...
+    // Check if the product is already in the cart
+    const existingItem = shoppingCart.find(
+        item => item.productId === productId
+    );
 
-    res.json({ success: true, message: "Product added to the cart!" });
+    if (existingItem) {
+        // Update quantity if the product is already in the cart
+        existingItem.quantity += parseInt(quantity);
+    } else {
+        // Add a new item to the cart
+        shoppingCart.push({ productId, quantity: parseInt(quantity) });
+    }
+
+    res.json({ success: true, message: "Item added to the cart successfully!" });
 });
 
 // Remove from Cart
@@ -288,18 +298,21 @@ app.delete("/cart/remove/:productId", (req, res) => {
         return;
     }
 
-    // Remove the product from the cart (you would need to implement this logic)
-    // ...
+    // Remove the item from the cart
+    shoppingCart = shoppingCart.filter(
+        item => item.productId !== productId
+    );
 
     res.json({ success: true, message: "Product removed from the cart!" });
 });
 
 // Clear Cart
 app.delete("/cart/clear", (req, res) => {
-    // Implement logic to clear all items from the shopping cart
-    // ...
+    // in-memory data structure:
+    shoppingCart.items = [];  // Assuming 'shoppingCart' is the object representing the user's cart
 
-    res.json({ success: true, message: "Cart cleared!" });
+    // Alternatively, if you're using a database, you would perform a delete operation to remove all cart items associated with the user
+
 });
 
 /* User Reviews */
