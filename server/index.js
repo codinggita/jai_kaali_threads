@@ -144,20 +144,50 @@ app.delete("/products/:productId", (req, res) => {
 /* Shopping cart */
 // Get Shopping Cart
 app.get("/cart", (req, res) => {
-    // logic to fetch and return items in the shopping cart
-    res.send("View your lists");
+    // Implement logic to fetch and return items in the shopping cart
+    // res.json({ cartItems: [...] });
 });
 
 // Add to Cart
-app.get("/cart/add", (req, res) => {
-    // logic to add products to the shopping cart
-    res.send("Add products to your cart");
+app.post("/cart/add", (req, res) => {
+    // Implement logic to add products to the shopping cart
+    const { productId, quantity } = req.body;
+
+    // Validate the inputs
+    if (!productId || !quantity) {
+        res.status(400).json({ error: "Incomplete data. Please provide productId and quantity." });
+        return;
+    }
+
+    // Add the product to the cart (you would need to implement this logic)
+    // ...
+
+    res.json({ success: true, message: "Product added to the cart!" });
 });
 
 // Remove from Cart
-app.get("/cart/remove", (req, res) => {
-    // logic to remove products from the shopping cart
-    res.send("Remove products from your cart");
+app.delete("/cart/remove/:productId", (req, res) => {
+    // Implement logic to remove a specific product from the shopping cart
+    const productId = req.params.productId;
+
+    // Validate the productId
+    if (!productId) {
+        res.status(400).json({ error: "Incomplete data. Please provide productId." });
+        return;
+    }
+
+    // Remove the product from the cart (you would need to implement this logic)
+    // ...
+
+    res.json({ success: true, message: "Product removed from the cart!" });
+});
+
+// Clear Cart
+app.delete("/cart/clear", (req, res) => {
+    // Implement logic to clear all items from the shopping cart
+    // ...
+
+    res.json({ success: true, message: "Cart cleared!" });
 });
 
 /* User Reviews */
