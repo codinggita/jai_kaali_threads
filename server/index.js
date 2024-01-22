@@ -8,6 +8,19 @@ app.use(express.json());
 // in-memory database for demonstration purposes
 const users = [];
 
+// Assume array of products
+const products = [
+    { id: 1, name: "Shirt", category: "Clothing", price: 29.99 },
+    { id: 2, name: "Jeans", category: "Clothing", price: 39.99 },
+    // Add more product entries as needed
+];
+
+const productsData = [
+    { productId: 1, name: "Product A", category: "Shirts", price: 29.99, description: "Lorem ipsum..." },
+    { productId: 2, name: "Product B", category: "T-Shirts", price: 19.99, description: "Lorem ipsum..." },
+    // ... other products
+];
+
 // Start the server
 app.listen(port, () => {
     console.log(`App running on port ${port}`);
