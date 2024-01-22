@@ -5,12 +5,16 @@ const port = 5000;
 // Middleware to parse JSON body in requests
 app.use(express.json());
 
+// in-memory database for demonstration purposes
+const users = [];
+
 // Start the server
 app.listen(port, () => {
     console.log(`App running on port ${port}`);
 });
 
 // Sign Up (POST)
+// Revisit
 app.post("/signup", (req, res) => {
     // Implement logic to create a new user account
     const { username, email, password } = req.body;
@@ -23,43 +27,76 @@ app.post("/signup", (req, res) => {
         return;
     }
 
-    // Save the user to the database or perform necessary actions
-    // ...
+    // Check if the email already exists
+    if (users.some(user => user.email === email)) {
+        res.status(400).json(
+            { error: "Email already exists. Please use a different email address." }
+        );
+        return;
+    }
+
+    // Save the user to the database
+    const newUser = { username, email, password };
+    users.push(newUser);
 
     res.json({ success: true, message: "User registered successfully!" });
 });
 
+// const jwt = require("jsonwebtoken");
+
+// function generateToken() {
+//     // Replace the secret with your own secret key
+//     const secretKey = "yourSecretKey";
+//     const token = jwt.sign({ /* Add any additional user information here */ }, secretKey, { expiresIn: "1h" });
+//     return token;
+// }
+
 // Log In (POST)
+// Revisit
 app.post("/login", (req, res) => {
     // Implement logic to authenticate the user
     const { username, password } = req.body;
 
     // Validate the inputs
     if (!username || !password) {
-        res.status(400).json(
-            { error: "Incomplete data. Please provide username and password." }
-        );
+        res.status(400).json({ error: "Incomplete data. Please provide username and password." });
         return;
     }
 
-    // Verify credentials and generate a token or session (you may want to use a library for this)
-    // ...
+    // Find the user in the array (replace this with a database query)
+    const user = users.find((u) => u.username === username && u.password === password);
 
-    res.json({ success: true, message: "Login successful!" });
+    if (!user) {
+        res.status(401).json({ error: "Invalid credentials. Please check your username and password." });
+        return;
+    }
+
+    // Generate a token or session (you may want to use a library for this)
+    const token = generateToken(); // Replace with your token generation logic
+
+    res.json({ success: true, message: "Login successful!", token });
 });
 
 // Get User Details (GET)
+// Revisit
 app.get("/user/:userId", (req, res) => {
     // Implement logic to fetch user details
     const userId = req.params.userId;
     
-    // Fetch user details from the database or wherever they are stored
-    // ...
+    // Find the user in the database based on userId
+    const user = users.find(u => u.userId === userId);
 
-    // res.json({ user: { userId, ... } });
+    if (!user) {
+        // User not found
+        res.status(404).json({ error: "User not found." });
+    } else {
+        // User found, respond with user details
+        res.json({ user });
+    }
 });
 
 // Log Out (POST)
+// Revisit
 app.post("/logout", (req, res) => {
     // Implement logic to log the user out
     // Destroy the session or token, clear cookies, etc.
