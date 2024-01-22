@@ -21,6 +21,9 @@ const productsData = [
     // ... other products
 ];
 
+// in-memory shopping cart array
+let shoppingCart = [];
+
 // Start the server
 app.listen(port, () => {
     console.log(`App running on port ${port}`);
@@ -197,17 +200,49 @@ app.put("/products/:productId", (req, res) => {
     // Implement logic to handle the update of a specific product
     const updatedProductData = req.body;
 
-    // Validate the inputs and check if the product exists (add more validation as needed)
+    // Validate the inputs and check if the product exists
     if (!updatedProductData) {
         res.status(400).json({ error: "Invalid data. Please provide updated product information." });
         return;
     }
 
-    // Update the product details in the database or perform necessary actions
-    // ...
+    // Assume you have a function to check if a product with the given ID exists in your database
+    const existingProduct = getProductById(productId);
 
-    res.json({ success: true, message: "Product details updated successfully!" });
+    if (!existingProduct) {
+        res.status(404).json({ error: "Product not found." });
+        return;
+    }
+
+    // Update the product details in the database or perform necessary actions
+    // Here, you might use an ORM like Mongoose or Sequelize to interact with your database
+    // Example using Mongoose (for MongoDB):
+    // ProductModel.findByIdAndUpdate(productId, updatedProductData, { new: true })
+    //   .then(updatedProduct => {
+    //       res.json({ success: true, message: "Product details updated successfully!", updatedProduct });
+    //   })
+    //   .catch(error => {
+    //       res.status(500).json({ error: "Error updating product details." });
+    //   });
+
+    // For demonstration purposes, let's assume the update was successful
+    const updatedProduct = { ...existingProduct, ...updatedProductData };
+
+    res.json({ success: true, message: "Product details updated successfully!", updatedProduct });
 });
+
+// Dummy function to simulate fetching a product from the database
+function getProductById(productId) {
+    // Replace this with actual database query logic
+    // For now, returning a dummy product object
+    return {
+        productId: productId,
+        name: "Updated Product",
+        description: "Updated product description",
+        price: 29.99,
+        // ... other product details
+    };
+}
 
 // Delete a Product
 app.delete("/products/:productId", (req, res) => {
@@ -256,8 +291,8 @@ function deleteProduct(productId) {
 /* Shopping cart */
 // Get Shopping Cart
 app.get("/cart", (req, res) => {
-    // Implement logic to fetch and return items in the shopping cart
-    // res.json({ cartItems: [...] });
+    // Return the current state of the shopping cart
+    res.json({ cartItems: shoppingCart });
 });
 
 // Add to Cart
@@ -271,10 +306,20 @@ app.post("/cart/add", (req, res) => {
         return;
     }
 
-    // Add the product to the cart (you would need to implement this logic)
-    // ...
+    // Check if the product is already in the cart
+    const existingItem = shoppingCart.find(
+        item => item.productId === productId
+    );
 
-    res.json({ success: true, message: "Product added to the cart!" });
+    if (existingItem) {
+        // Update quantity if the product is already in the cart
+        existingItem.quantity += parseInt(quantity);
+    } else {
+        // Add a new item to the cart
+        shoppingCart.push({ productId, quantity: parseInt(quantity) });
+    }
+
+    res.json({ success: true, message: "Item added to the cart successfully!" });
 });
 
 // Remove from Cart
@@ -288,18 +333,21 @@ app.delete("/cart/remove/:productId", (req, res) => {
         return;
     }
 
-    // Remove the product from the cart (you would need to implement this logic)
-    // ...
+    // Remove the item from the cart
+    shoppingCart = shoppingCart.filter(
+        item => item.productId !== productId
+    );
 
     res.json({ success: true, message: "Product removed from the cart!" });
 });
 
 // Clear Cart
 app.delete("/cart/clear", (req, res) => {
-    // Implement logic to clear all items from the shopping cart
-    // ...
+    // in-memory data structure:
+    shoppingCart.items = [];  // Assuming 'shoppingCart' is the object representing the user's cart
 
-    res.json({ success: true, message: "Cart cleared!" });
+    // Alternatively, if you're using a database, you would perform a delete operation to remove all cart items associated with the user
+
 });
 
 /* User Reviews */
