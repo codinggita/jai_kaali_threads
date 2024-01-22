@@ -69,20 +69,76 @@ app.post("/logout", (req, res) => {
 });
 
 /* Product Catalog */
+
+// Get All Products
 app.get("/products", (req, res) => {
-    res.send("Choose any one of them!");
+    // Implement logic to fetch and return a list of all products
+    // res.json({ products: [...] });
 });
 
-// Specific Category
-app.get("/products/:category", (req, res) => {
+// Get Products by Category
+app.get("/products/category/:category", (req, res) => {
     const category = req.params.category;
-    res.send("Here are available shirts!");
+    // Implement logic to fetch and return products based on category
+    // res.json({ products: [...] });
 });
 
 // Get Product Details
 app.get("/products/:productId", (req, res) => {
     const productId = req.params.productId;
-    res.send("Here are available Tshirts!");
+    // Implement logic to fetch and return details for a specific product
+    // res.json({ productDetails: { productId, ... } });
+});
+
+// Add a New Product
+app.post("/products", (req, res) => {
+    // Implement logic to handle the addition of a new product
+    const { name, category, price, description } = req.body;
+
+    // Validate the inputs (add more validation as needed)
+    if (!name || !category || !price || !description) {
+        res.status(400).json(
+            { error: "Incomplete data. Please provide name, category, price, and description." }
+        );
+        return;
+    }
+
+    // Save the new product to the database or perform necessary actions
+    // ...
+
+    res.json({ success: true, message: "Product added successfully!" });
+});
+
+// Update Product Details
+app.put("/products/:productId", (req, res) => {
+    const productId = req.params.productId;
+    // Implement logic to handle the update of a specific product
+    const updatedProductData = req.body;
+
+    // Validate the inputs and check if the product exists (add more validation as needed)
+    if (!updatedProductData) {
+        res.status(400).json({ error: "Invalid data. Please provide updated product information." });
+        return;
+    }
+
+    // Update the product details in the database or perform necessary actions
+    // ...
+
+    res.json({ success: true, message: "Product details updated successfully!" });
+});
+
+// Delete a Product
+app.delete("/products/:productId", (req, res) => {
+    const productId = req.params.productId;
+    // Implement logic to handle the deletion of a specific product
+
+    // Check if the product exists (add more validation as needed)
+    // ...
+
+    // Delete the product from the database or perform necessary actions
+    // ...
+
+    res.json({ success: true, message: "Product deleted successfully!" });
 });
 
 /* Shopping cart */
