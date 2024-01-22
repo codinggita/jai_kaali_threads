@@ -21,6 +21,9 @@ const productsData = [
     // ... other products
 ];
 
+// in-memory shopping cart array
+let shoppingCart = [];
+
 // Start the server
 app.listen(port, () => {
     console.log(`App running on port ${port}`);
