@@ -251,10 +251,60 @@ app.delete("/reviews/:reviewId", (req, res) => {
 });
 
 
-// Checkout Process
-app.get("/checkout", (req, res) => {
-    res.send("Here is your bill");
+/* Checkout Process */
+// Get Cart Items for Checkout
+app.get("/checkout/cart", (req, res) => {
+    // Implement logic to fetch and return items in the shopping cart for checkout
+    // res.json({ cartItems: [...] });
 });
+
+// Get Checkout Summary
+app.get("/checkout/summary", (req, res) => {
+    // Implement logic to fetch and return a summary of selected items for checkout
+    // res.json({ checkoutSummary: [...] });
+});
+
+// Process Checkout (POST)
+app.post("/checkout/process", (req, res) => {
+    // Implement logic to handle the checkout process
+    const { paymentMethod, shippingAddress, items } = req.body;
+
+    // Validate the inputs and handle the checkout process
+    // ...
+
+    res.json({ success: true, message: "Checkout successful!" });
+});
+
+// Update Shipping Address (PUT or PATCH)
+app.put("/checkout/update-shipping", (req, res) => {
+    // Implement logic to update the shipping address
+    const { shippingAddress } = req.body;
+
+    // Validate the inputs and update the shipping address
+    // ...
+
+    res.json({ success: true, message: "Shipping address updated successfully!" });
+});
+
+// Apply Discount Code (POST or PATCH)
+app.post("/checkout/apply-discount", (req, res) => {
+    // Implement logic to apply a discount code
+    const { discountCode } = req.body;
+
+    // Validate the discount code and apply it to the checkout summary
+    // ...
+
+    res.json({ success: true, message: "Discount applied successfully!" });
+});
+
+// Cancel Checkout (DELETE)
+app.delete("/checkout/cancel", (req, res) => {
+    // Implement logic to cancel the checkout process
+    // ...
+
+    res.json({ success: true, message: "Checkout canceled!" });
+});
+
 
 // Special Offers and Discounts
 app.get("/offers", (req, res) => {
