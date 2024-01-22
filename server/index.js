@@ -354,14 +354,26 @@ app.delete("/cart/clear", (req, res) => {
 // Retrieve Reviews for All Products
 app.get("/reviews", (req, res) => {
     // Implement logic to fetch and return all reviews for all products
-    // res.json({ reviews: [...] });
+    res.json({ reviews: reviewsDatabase });
 });
 
 // Retrieve Reviews for a Specific Product
 app.get("/reviews/:productId", (req, res) => {
-    // Implement logic to fetch and return reviews for a specific product
-    const productId = req.params.productId;
-    // res.json({ reviews: [...], productId });
+    const productId = parseInt(req.params.productId);
+
+    // Filter reviews based on the productId
+    const productReviews = reviewsData.filter(
+        review => review.productId === productId
+    );
+
+    if (productReviews.length === 0) {
+        res.status(404).json(
+            { error: "No reviews found for the specified product." }
+        );
+        return;
+    }
+
+    res.json({ reviews: productReviews });
 });
 
 // Submit a Review for a Product (POST)
@@ -371,42 +383,76 @@ app.post("/reviews/submit", (req, res) => {
 
     // Validate the inputs
     if (!productId || !rating || !comment) {
-        res.status(400).json({ error: "Incomplete data. Please provide productId, rating, and comment." });
+        res.status(400).json(
+            { error: "Incomplete data. Please provide productId, rating, and comment." }
+        );
         return;
     }
 
     // Save the review to the database or perform necessary actions
-    // ...
+    const newReview = {
+        productId,
+        rating,
+        comment,
+        timestamp: new Date(),
+    };
+
+    reviewsDatabase.push(newReview);
+
+    // You can replace the above array with actual database interactions
 
     res.json({ success: true, message: "Review submitted successfully!" });
 });
 
 // Update a Review (PATCH)
 app.patch("/reviews/:reviewId", (req, res) => {
-    // Implement logic to update a review
-    const reviewId = req.params.reviewId;
-    const { rating, comment } = req.body;
+    // Extract the reviewId from the URL
+    const reviewId = parseInt(req.params.reviewId);
 
-    // Validate the inputs
-    if (!rating || !comment) {
-        res.status(400).json({ error: "Incomplete data. Please provide rating and comment." });
+    // Find the index of the review in your data array
+    const reviewIndex = reviewsData.findIndex(review => review.id === reviewId);
+
+    // If the review doesn't exist, return an error
+    if (reviewIndex === -1) {
+        res.status(404).json({ error: "Review not found." });
         return;
     }
 
-    // Update the review in the database or perform necessary actions
-    // ...
+    // Get the existing review
+    const existingReview = reviewsData[reviewIndex];
+
+    // Update the review fields with new values from the request body
+    if (req.body.rating !== undefined) {
+      existingReview.rating = req.body.rating;
+    }
+    if (req.body.comment !== undefined) {
+      existingReview.comment = req.body.comment;
+    }
+
+    // Assuming you would save the updated reviews in a database, perform necessary actions here
 
     res.json({ success: true, message: "Review updated successfully!" });
 });
 
 // Delete a Review (DELETE)
 app.delete("/reviews/:reviewId", (req, res) => {
-    // Implement logic to delete a review
+    // Extract the reviewId from the URL parameters
     const reviewId = req.params.reviewId;
 
-    // Delete the review from the database or perform necessary actions
-    // ...
+    // Assuming you have a reviews database or storage
+    // Check if the review with the given ID exists
+    const existingReview = reviewsDatabase.find((review) => review.id === reviewId);
 
+    if (!existingReview) {
+        // If the review does not exist, return an error response
+        return res.status(404).json({ success: false, error: "Review not found." });
+    }
+
+    // If the review exists, delete it from the database or storage
+    // Here, we are using a filter to create a new array without the deleted review
+    reviewsDatabase = reviewsDatabase.filter((review) => review.id !== reviewId);
+
+    // Respond with a success message
     res.json({ success: true, message: "Review deleted successfully!" });
 });
 
