@@ -602,6 +602,81 @@ app.patch("/checkout/update-shipping", (req, res) => {
     res.json({ success: true, message: "Shipping address updated successfully!" });
 });
 
+// Apply Discount Code (POST)
+app.post("/checkout/apply-discount", (req, res) => {
+    // Implement logic to apply a discount code
+    const { discountCode } = req.body;
+
+    // Validate the discount code (this is a basic example, adjust as needed)
+    if (!discountCode || typeof discountCode !== "string") {
+        res.status(400).json({ error: "Invalid discount code. Please provide a valid code." });
+        return;
+    }
+
+    // Assume you have a database or some mechanism to check the validity of the discount code
+    const isValidDiscountCode = checkDiscountCodeValidity(discountCode);
+
+    if (!isValidDiscountCode) {
+        res.status(400).json({ error: "Invalid discount code. Please provide a valid code." });
+        return;
+    }
+
+    // Now, you can apply the discount to the checkout summary or perform any necessary actions
+    const checkoutSummary = applyDiscountToCheckoutSummary(discountCode);
+    
+    res.json({ success: true, message: "Discount applied successfully!", checkoutSummary });
+});
+
+// Function to check the validity of the discount code (replace with your own validation logic)
+function checkDiscountCodeValidity(code) {
+    // Implement logic to check if the discount code is valid (e.g., query a database)
+    // ...
+
+    // For demonstration purposes, return true; you need to replace this with your validation logic
+    return true;
+}
+
+// Function to apply the discount to the checkout summary (replace with your own logic)
+function applyDiscountToCheckoutSummary(code) {
+    // Implement logic to apply the discount to the checkout summary
+    // ...
+
+    // For demonstration purposes, return an updated checkout summary object
+    return { /* Updated checkout summary */ };
+}
+
+// Cancel Checkout (DELETE)
+app.delete("/checkout/cancel", (req, res) => {
+    // Assume the user is identified by a session or token
+    const userId = req.session.userId; // Adjust this based on your authentication mechanism
+
+    // Check if the user has an active checkout or items in the cart
+    const isCheckoutActive = checkIfCheckoutActive(userId); // Implement this function based on your application logic
+
+    if (!isCheckoutActive) {
+        res.status(400).json({ error: "No active checkout to cancel." });
+        return;
+    }
+
+    // Implement logic to cancel the checkout process, e.g., clear the user's cart
+    clearUserCart(userId); // Implement this function based on your application logic
+
+    res.json({ success: true, message: "Checkout canceled!" });
+});
+
+// Example functions for illustration purposes (replace with actual logic)
+function checkIfCheckoutActive(userId) {
+    // Implement logic to check if the user has an active checkout or items in the cart
+    // Return true if active, false otherwise
+    return true; // Replace with actual logic
+}
+
+function clearUserCart(userId) {
+    // Implement logic to clear the user's cart or cancel the ongoing transaction
+    // This could involve removing items from a database or session
+    // ...
+}
+
 /* Special Offers and Discounts */
 // Get All Offers
 app.get("/offers", (req, res) => {
