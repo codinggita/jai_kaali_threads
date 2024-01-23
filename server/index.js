@@ -24,6 +24,20 @@ const productsData = [
 // in-memory shopping cart array
 let shoppingCart = [];
 
+// Example array to store reviews
+const reviewsDatabase = [
+    { productId: 1, rating: 4, comment: "Great product!" },
+    { productId: 2, rating: 5, comment: "Excellent quality!" },
+    // ... more reviews
+];
+
+const reviewsData = [
+    { productId: 1, reviewId: 101, rating: 4, comment: "Great product!" },
+    { productId: 1, reviewId: 102, rating: 5, comment: "Excellent quality!" },
+    { productId: 2, reviewId: 103, rating: 3, comment: "Decent product." },
+    // Add more reviews as needed
+];
+
 // Start the server
 app.listen(port, () => {
     console.log(`App running on port ${port}`);
@@ -354,14 +368,26 @@ app.delete("/cart/clear", (req, res) => {
 // Retrieve Reviews for All Products
 app.get("/reviews", (req, res) => {
     // Implement logic to fetch and return all reviews for all products
-    // res.json({ reviews: [...] });
+    res.json({ reviews: reviewsDatabase });
 });
 
 // Retrieve Reviews for a Specific Product
 app.get("/reviews/:productId", (req, res) => {
-    // Implement logic to fetch and return reviews for a specific product
-    const productId = req.params.productId;
-    // res.json({ reviews: [...], productId });
+    const productId = parseInt(req.params.productId);
+
+    // Filter reviews based on the productId
+    const productReviews = reviewsData.filter(
+        review => review.productId === productId
+    );
+
+    if (productReviews.length === 0) {
+        res.status(404).json(
+            { error: "No reviews found for the specified product." }
+        );
+        return;
+    }
+
+    res.json({ reviews: productReviews });
 });
 
 // Submit a Review for a Product (POST)
@@ -371,42 +397,76 @@ app.post("/reviews/submit", (req, res) => {
 
     // Validate the inputs
     if (!productId || !rating || !comment) {
-        res.status(400).json({ error: "Incomplete data. Please provide productId, rating, and comment." });
+        res.status(400).json(
+            { error: "Incomplete data. Please provide productId, rating, and comment." }
+        );
         return;
     }
 
     // Save the review to the database or perform necessary actions
-    // ...
+    const newReview = {
+        productId,
+        rating,
+        comment,
+        timestamp: new Date(),
+    };
+
+    reviewsDatabase.push(newReview);
+
+    // You can replace the above array with actual database interactions
 
     res.json({ success: true, message: "Review submitted successfully!" });
 });
 
 // Update a Review (PATCH)
 app.patch("/reviews/:reviewId", (req, res) => {
-    // Implement logic to update a review
-    const reviewId = req.params.reviewId;
-    const { rating, comment } = req.body;
+    // Extract the reviewId from the URL
+    const reviewId = parseInt(req.params.reviewId);
 
-    // Validate the inputs
-    if (!rating || !comment) {
-        res.status(400).json({ error: "Incomplete data. Please provide rating and comment." });
+    // Find the index of the review in your data array
+    const reviewIndex = reviewsData.findIndex(review => review.id === reviewId);
+
+    // If the review doesn't exist, return an error
+    if (reviewIndex === -1) {
+        res.status(404).json({ error: "Review not found." });
         return;
     }
 
-    // Update the review in the database or perform necessary actions
-    // ...
+    // Get the existing review
+    const existingReview = reviewsData[reviewIndex];
+
+    // Update the review fields with new values from the request body
+    if (req.body.rating !== undefined) {
+      existingReview.rating = req.body.rating;
+    }
+    if (req.body.comment !== undefined) {
+      existingReview.comment = req.body.comment;
+    }
+
+    // Assuming you would save the updated reviews in a database, perform necessary actions here
 
     res.json({ success: true, message: "Review updated successfully!" });
 });
 
 // Delete a Review (DELETE)
 app.delete("/reviews/:reviewId", (req, res) => {
-    // Implement logic to delete a review
+    // Extract the reviewId from the URL parameters
     const reviewId = req.params.reviewId;
 
-    // Delete the review from the database or perform necessary actions
-    // ...
+    // Assuming you have a reviews database or storage
+    // Check if the review with the given ID exists
+    const existingReview = reviewsDatabase.find((review) => review.id === reviewId);
 
+    if (!existingReview) {
+        // If the review does not exist, return an error response
+        return res.status(404).json({ success: false, error: "Review not found." });
+    }
+
+    // If the review exists, delete it from the database or storage
+    // Here, we are using a filter to create a new array without the deleted review
+    reviewsDatabase = reviewsDatabase.filter((review) => review.id !== reviewId);
+
+    // Respond with a success message
     res.json({ success: true, message: "Review deleted successfully!" });
 });
 
@@ -414,57 +474,133 @@ app.delete("/reviews/:reviewId", (req, res) => {
 /* Checkout Process */
 // Get Cart Items for Checkout
 app.get("/checkout/cart", (req, res) => {
-    // Implement logic to fetch and return items in the shopping cart for checkout
-    // res.json({ cartItems: [...] });
+    // Assuming you have a function to calculate the total price and fetch cart items
+    const cartItems = getCartItems();
+    const totalPrice = calculateTotalPrice(cartItems);
+
+    res.json({ cartItems, totalPrice });
 });
+
+// Function to get cart items
+function getCartItems() {
+    // Implement logic to fetch and return items in the shopping cart
+    // You might retrieve the cart data from the 'shoppingCart' array or a database
+    // ...
+
+    return shoppingCart;
+}
+
+// Function to calculate the total price of items in the cart
+function calculateTotalPrice(cartItems) {
+    // Implement logic to calculate the total price based on the cart items
+    // You might iterate through the cartItems and sum up the prices
+    // ...
+
+    return total;
+}
 
 // Get Checkout Summary
 app.get("/checkout/summary", (req, res) => {
-    // Implement logic to fetch and return a summary of selected items for checkout
-    // res.json({ checkoutSummary: [...] });
+    // Calculate the total price based on the items in the shopping cart
+    const totalPrice = shoppingCart.reduce((total, item) => total + item.price, 0);
+
+    // You might have additional logic for applying discounts, taxes, etc.
+
+    // Prepare the checkout summary
+    const checkoutSummary = {
+        items: shoppingCart,
+        total: totalPrice,
+        // Add more details as needed
+    };
+
+    res.json({ checkoutSummary });
 });
 
 // Process Checkout (POST)
 app.post("/checkout/process", (req, res) => {
-    // Implement logic to handle the checkout process
+    // Extract relevant information from the request body
     const { paymentMethod, shippingAddress, items } = req.body;
 
-    // Validate the inputs and handle the checkout process
+    // Validate the inputs
+    if (!paymentMethod || !shippingAddress || !items || items.length === 0) {
+        res.status(400).json({ error: "Incomplete data. Please provide paymentMethod, shippingAddress, and at least one item." });
+        return;
+    }
+
+    // Perform additional validations based on your business logic
+    // For example, validate the payment method, check if items are in stock, etc.
     // ...
 
-    res.json({ success: true, message: "Checkout successful!" });
+    // Calculate the total amount based on the items in the cart
+    const totalAmount = calculateTotalAmount(items);
+
+    // Process the payment using the chosen payment method
+    const paymentResult = processPayment(paymentMethod, totalAmount);
+
+    // If the payment is successful, proceed with order fulfillment
+    if (paymentResult.success) {
+        // Implement logic to update inventory, generate an order, and perform other necessary actions
+        const orderDetails = fulfillOrder(items, shippingAddress);
+
+        // Return a success message with order details
+        res.json({ success: true, message: "Checkout successful!", orderDetails });
+    } else {
+        // If the payment fails, return an error message
+        res.status(400).json({ error: "Payment failed. Please check your payment details and try again." });
+    }
 });
+
+// Function to calculate the total amount based on items in the cart
+function calculateTotalAmount(items) {
+    // Implement logic to calculate the total amount based on item prices and quantities
+    // ...
+    return totalAmount;
+}
+
+// Function to process the payment
+function processPayment(paymentMethod, totalAmount) {
+    // Implement logic to process the payment using the chosen payment method
+    // ...
+    return { success: true, paymentResult: "Payment processed successfully" };
+}
+
+// Function to fulfill the order
+function fulfillOrder(items, shippingAddress) {
+    // Implement logic to update inventory, generate an order, and perform other necessary actions
+    // ...
+    const orderDetails = {
+        orderId: "123456",
+        items,
+        shippingAddress,
+        // Additional order details
+    };
+    return orderDetails;
+}
 
 // Update Shipping Address (PATCH)
 app.patch("/checkout/update-shipping", (req, res) => {
-    // Implement logic to update the shipping address
+    // Assuming you have a user authentication mechanism in place, retrieve the user ID from the authenticated user's session
+    const userId = req.user.id;
+
+    // Extract the new shipping address from the request body
     const { shippingAddress } = req.body;
 
-    // Validate the inputs and update the shipping address
-    // ...
+    // Validate the inputs
+    if (!shippingAddress) {
+        res.status(400).json({ error: "Please provide a new shipping address." });
+        return;
+    }
+
+    // Assuming you have a database or data store, update the user's shipping address
+    // Replace the following logic with your actual data update logic
+
+    // Example: Update the shipping address in the database for the user with the given ID
+    // database.updateShippingAddress(userId, shippingAddress);
+
+    // End of example logic
 
     res.json({ success: true, message: "Shipping address updated successfully!" });
 });
-
-// Apply Discount Code (POST)
-app.post("/checkout/apply-discount", (req, res) => {
-    // Implement logic to apply a discount code
-    const { discountCode } = req.body;
-
-    // Validate the discount code and apply it to the checkout summary
-    // ...
-
-    res.json({ success: true, message: "Discount applied successfully!" });
-});
-
-// Cancel Checkout (DELETE)
-app.delete("/checkout/cancel", (req, res) => {
-    // Implement logic to cancel the checkout process
-    // ...
-
-    res.json({ success: true, message: "Checkout canceled!" });
-});
-
 
 /* Special Offers and Discounts */
 // Get All Offers
