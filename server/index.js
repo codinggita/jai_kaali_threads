@@ -681,14 +681,24 @@ function clearUserCart(userId) {
 // Get All Offers
 app.get("/offers", (req, res) => {
     // Implement logic to fetch and return all offers
-    // res.json({ offers: [...] });
+    res.json({ offers: offersData });
 });
 
 // Get Details of a Specific Offer
 app.get("/offers/:offerId", (req, res) => {
-    // Implement logic to fetch and return details of a specific offer
-    const offerId = req.params.offerId;
-    // res.json({ offerDetails: {...}, offerId });
+    // Extract offerId from request parameters
+    const offerId = parseInt(req.params.offerId);
+
+    // Find the offer in the data based on the offerId
+    const selectedOffer = offersData.find(offer => offer.id === offerId);
+
+    // Check if the offer was found
+    if (!selectedOffer) {
+        return res.status(404).json({ error: "Offer not found." });
+    }
+
+    // Return the details of the selected offer
+    res.json({ offerDetails: selectedOffer });
 });
 
 // Create a New Offer
@@ -702,16 +712,25 @@ app.post("/offers/create", (req, res) => {
         return;
     }
 
-    // Save the new offer to the database or perform necessary actions
-    // ...
+    // Create a new offer object
+    const newOffer = {
+        id: offers.length + 1, // Replace this with a unique identifier from your data storage
+        title,
+        description,
+        discountPercentage,
+        startDate,
+        endDate,
+    };
 
-    res.json({ success: true, message: "Offer created successfully!" });
+    // Save the new offer to the data storage (in-memory array in this example)
+    offersData.push(newOffer);
+
+    res.json({ success: true, message: "Offer created successfully!", newOffer });
 });
 
 // Update an Existing Offer
 app.put("/offers/update/:offerId", (req, res) => {
-    // Implement logic to update details of an existing offer
-    const offerId = req.params.offerId;
+    const offerId = parseInt(req.params.offerId);
     const { title, description, discountPercentage, startDate, endDate } = req.body;
 
     // Validate the inputs
@@ -720,23 +739,54 @@ app.put("/offers/update/:offerId", (req, res) => {
         return;
     }
 
-    // Update the offer in the database or perform necessary actions
-    // ...
+    // Find the index of the offer in the database
+    const offerIndex = offersDatabase.findIndex(offer => offer.id === offerId);
+
+    // Check if the offer with the specified ID exists
+    if (offerIndex === -1) {
+        res.status(404).json({ error: "Offer not found." });
+        return;
+    }
+
+    // Update the offer details if provided in the request body
+    if (title) offersDatabase[offerIndex].title = title;
+    if (description) offersDatabase[offerIndex].description = description;
+    if (discountPercentage) offersDatabase[offerIndex].discountPercentage = discountPercentage;
+    if (startDate) offersDatabase[offerIndex].startDate = startDate;
+    if (endDate) offersDatabase[offerIndex].endDate = endDate;
+
+    // In a real application, you'd save the updated data to your persistent storage (e.g., database)
+    // For simplicity, we're using an in-memory array here.
 
     res.json({ success: true, message: "Offer updated successfully!" });
 });
 
 // Delete an Existing Offer
 app.delete("/offers/delete/:offerId", (req, res) => {
-    // Implement logic to delete an existing offer
     const offerId = req.params.offerId;
 
-    // Delete the offer from the database or perform necessary actions
-    // ...
+    // Assume you are using MongoDB with Mongoose as an example
+    // You'll need to adjust this part based on your actual database and ORM
 
-    res.json({ success: true, message: "Offer deleted successfully!" });
+    // Import the Offer model (assuming you have a model named Offer)
+    const Offer = require('./models/offer');
+
+    // Delete the offer from the database
+    Offer.findByIdAndRemove(offerId, (err, deletedOffer) => {
+        if (err) {
+            res.status(500).json({ error: "Error deleting the offer from the database." });
+            return;
+        }
+
+        if (!deletedOffer) {
+            res.status(404).json({ error: "Offer not found." });
+            return;
+        }
+
+        // If the offer is successfully deleted
+        res.json({ success: true, message: "Offer deleted successfully!" });
+    });
 });
-
 
 // For errors
 app.get("/*", (req, res) => {
