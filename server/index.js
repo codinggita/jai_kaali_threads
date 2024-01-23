@@ -38,6 +38,13 @@ const reviewsData = [
     // Add more reviews as needed
 ];
 
+// Placeholder data (replace this with your actual data)
+const offersData = [
+    { id: 1, title: "Discount on Shirts", discountPercentage: 20, startDate: "2024-01-15", endDate: "2024-01-31" },
+    { id: 2, title: "Winter Sale", discountPercentage: 15, startDate: "2024-02-01", endDate: "2024-02-28" },
+    // ... other offer objects
+];
+
 // Start the server
 app.listen(port, () => {
     console.log(`App running on port ${port}`);
