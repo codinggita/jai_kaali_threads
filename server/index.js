@@ -211,9 +211,9 @@ app.post("/products", (req, res) => {
     res.json({ success: true, message: "Product added successfully!", product: newProduct });
 });
 
-function generateProductId() {
-    return Math.random().toString(36).substring(7);
-}
+// function generateProductId() {
+//     return Math.random().toString(36).substring(7);
+// }
 
 // Update Product Details
 app.put("/products/:productId", (req, res) => {
@@ -291,23 +291,23 @@ app.delete("/products/:productId", (req, res) => {
 // Example Functions (Replace these with your actual database operations)
 
 // Function to Get a Product by ID
-function getProductById(productId) {
-    // Implement logic to fetch the product from the database by ID
-    // Return null if not found, otherwise return the product object
-    // Example: return db.products.find(product => product.id === productId);
-}
+// function getProductById(productId) {
+//     // Implement logic to fetch the product from the database by ID
+//     // Return null if not found, otherwise return the product object
+//     // Example: return db.products.find(product => product.id === productId);
+// }
 
 // Function to Delete a Product by ID
-function deleteProduct(productId) {
-    // Implement logic to delete the product from the database by ID
-    // Return the deleted product object or null if an error occurs
-    // Example: const index = db.products.findIndex(product => product.id === productId);
-    //          if (index !== -1) {
-    //              const deletedProduct = db.products.splice(index, 1)[0];
-    //              return deletedProduct;
-    //          }
-    //          return null;
-}
+// function deleteProduct(productId) {
+//     // Implement logic to delete the product from the database by ID
+//     // Return the deleted product object or null if an error occurs
+//     // Example: const index = db.products.findIndex(product => product.id === productId);
+//     //          if (index !== -1) {
+//     //              const deletedProduct = db.products.splice(index, 1)[0];
+//     //              return deletedProduct;
+//     //          }
+//     //          return null;
+// }
 
 /* Shopping cart */
 // Get Shopping Cart
@@ -489,22 +489,22 @@ app.get("/checkout/cart", (req, res) => {
 });
 
 // Function to get cart items
-function getCartItems() {
-    // Implement logic to fetch and return items in the shopping cart
-    // You might retrieve the cart data from the 'shoppingCart' array or a database
-    // ...
+// function getCartItems() {
+//     // Implement logic to fetch and return items in the shopping cart
+//     // You might retrieve the cart data from the 'shoppingCart' array or a database
+//     // ...
 
-    return shoppingCart;
-}
+//     return shoppingCart;
+// }
 
 // Function to calculate the total price of items in the cart
-function calculateTotalPrice(cartItems) {
-    // Implement logic to calculate the total price based on the cart items
-    // You might iterate through the cartItems and sum up the prices
-    // ...
+// function calculateTotalPrice(cartItems) {
+//     // Implement logic to calculate the total price based on the cart items
+//     // You might iterate through the cartItems and sum up the prices
+//     // ...
 
-    return total;
-}
+//     return total;
+// }
 
 // Get Checkout Summary
 app.get("/checkout/summary", (req, res) => {
@@ -558,31 +558,31 @@ app.post("/checkout/process", (req, res) => {
 });
 
 // Function to calculate the total amount based on items in the cart
-function calculateTotalAmount(items) {
-    // Implement logic to calculate the total amount based on item prices and quantities
-    // ...
-    return totalAmount;
-}
+// function calculateTotalAmount(items) {
+//     // Implement logic to calculate the total amount based on item prices and quantities
+//     // ...
+//     return totalAmount;
+// }
 
-// Function to process the payment
-function processPayment(paymentMethod, totalAmount) {
-    // Implement logic to process the payment using the chosen payment method
-    // ...
-    return { success: true, paymentResult: "Payment processed successfully" };
-}
+// // Function to process the payment
+// function processPayment(paymentMethod, totalAmount) {
+//     // Implement logic to process the payment using the chosen payment method
+//     // ...
+//     return { success: true, paymentResult: "Payment processed successfully" };
+// }
 
 // Function to fulfill the order
-function fulfillOrder(items, shippingAddress) {
-    // Implement logic to update inventory, generate an order, and perform other necessary actions
-    // ...
-    const orderDetails = {
-        orderId: "123456",
-        items,
-        shippingAddress,
-        // Additional order details
-    };
-    return orderDetails;
-}
+// function fulfillOrder(items, shippingAddress) {
+//     // Implement logic to update inventory, generate an order, and perform other necessary actions
+//     // ...
+//     const orderDetails = {
+//         orderId: "123456",
+//         items,
+//         shippingAddress,
+//         // Additional order details
+//     };
+//     return orderDetails;
+// }
 
 // Update Shipping Address (PATCH)
 app.patch("/checkout/update-shipping", (req, res) => {
@@ -635,22 +635,22 @@ app.post("/checkout/apply-discount", (req, res) => {
 });
 
 // Function to check the validity of the discount code (replace with your own validation logic)
-function checkDiscountCodeValidity(code) {
-    // Implement logic to check if the discount code is valid (e.g., query a database)
-    // ...
+// function checkDiscountCodeValidity(code) {
+//     // Implement logic to check if the discount code is valid (e.g., query a database)
+//     // ...
 
-    // For demonstration purposes, return true; you need to replace this with your validation logic
-    return true;
-}
+//     // For demonstration purposes, return true; you need to replace this with your validation logic
+//     return true;
+// }
 
-// Function to apply the discount to the checkout summary (replace with your own logic)
-function applyDiscountToCheckoutSummary(code) {
-    // Implement logic to apply the discount to the checkout summary
-    // ...
+// // Function to apply the discount to the checkout summary (replace with your own logic)
+// function applyDiscountToCheckoutSummary(code) {
+//     // Implement logic to apply the discount to the checkout summary
+//     // ...
 
-    // For demonstration purposes, return an updated checkout summary object
-    return { /* Updated checkout summary */ };
-}
+//     // For demonstration purposes, return an updated checkout summary object
+//     return { /* Updated checkout summary */ };
+// }
 
 // Cancel Checkout (DELETE)
 app.delete("/checkout/cancel", (req, res) => {
@@ -672,17 +672,17 @@ app.delete("/checkout/cancel", (req, res) => {
 });
 
 // Example functions for illustration purposes (replace with actual logic)
-function checkIfCheckoutActive(userId) {
-    // Implement logic to check if the user has an active checkout or items in the cart
-    // Return true if active, false otherwise
-    return true; // Replace with actual logic
-}
+// function checkIfCheckoutActive(userId) {
+//     // Implement logic to check if the user has an active checkout or items in the cart
+//     // Return true if active, false otherwise
+//     return true; // Replace with actual logic
+// }
 
-function clearUserCart(userId) {
-    // Implement logic to clear the user's cart or cancel the ongoing transaction
-    // This could involve removing items from a database or session
-    // ...
-}
+// function clearUserCart(userId) {
+//     // Implement logic to clear the user's cart or cancel the ongoing transaction
+//     // This could involve removing items from a database or session
+//     // ...
+// }
 
 /* Special Offers and Discounts */
 // Get All Offers
