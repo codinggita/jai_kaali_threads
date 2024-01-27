@@ -46,7 +46,7 @@ app.get("/students", (req, res) => {
 });
 
 // post will add a new student into table
-app.post("/student", (req, res) => {
+app.post("/students", (req, res) => {
   const newStudent = new StudentsCollection(req.body);
   newStudent.save((err, student) => {
     if (err) {
@@ -71,7 +71,7 @@ app.put("/students/:uid", (req, res) => {
 });
 
 // patch will update 1 field of a student
-app.patch("/students/update/:uid", (req, res) => {
+app.patch("/students/v1/:uid", (req, res) => {
   const uid = req.params.uid;
   const update = req.body;
   StudentsCollection.findOneAndUpdate({uid: uid}, update, {new: true}, (err, student) => {
@@ -84,7 +84,7 @@ app.patch("/students/update/:uid", (req, res) => {
 });
 
 // delete will remove a student from the table  
-app.delete("/students/delete/:uid", (req, res) => {
+app.delete("/students/d1/:uid", (req, res) => {
   const uid = req.params.uid;
   StudentsCollection.findOneAndDelete({uid: uid}, (err, student) => {
     if (err) {
