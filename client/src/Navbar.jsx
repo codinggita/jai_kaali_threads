@@ -1,4 +1,6 @@
 import * as React from 'react';
+import './css/Navbar.css';
+import { Link } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -12,6 +14,11 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
+import SearchIcon from '@mui/icons-material/Search';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import InputBase from '@mui/material/InputBase';
+import LocalOfferOutlinedIcon from '@mui/icons-material/LocalOfferOutlined';
+import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
 
 const pages = ['Home', 'Shop', 'Product', 'Contact Us'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
@@ -36,7 +43,18 @@ function Navbar() {
   };
 
   return (
-    <AppBar position="fixed" sx={{ backgroundColor: '#FEFEFE', boxShadow: 'none' }}>
+    <>
+      <div className="offer">
+        <LocalOfferOutlinedIcon/>
+        <div className="offer-text">
+          <p>30% off storewide — Limited time!</p>
+        </div>
+        <div className="offer-shop">
+          <p>Shop Now</p>
+          <ArrowForwardOutlinedIcon/>
+        </div>
+      </div>
+    <AppBar position= "static" sx={{ backgroundColor: '#FEFEFE', boxShadow: 'none' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1, color: '#000000' }} />
@@ -120,6 +138,7 @@ function Navbar() {
                 key={page}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: '#000000', display: 'block' }}
+                component={Link} to={`/${page.toLowerCase()}`}
               >
                 {page}
               </Button>
@@ -127,6 +146,25 @@ function Navbar() {
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
+            <Box sx={{ position: 'relative', ml: 2 }}>
+              <SearchIcon sx={{ position: 'absolute', left: 0, top: '50%', transform: 'translateY(-50%)', color: 'inherit' }} />
+              <InputBase
+                placeholder="Search…"
+                sx={{
+                  color: 'inherit',
+                  pl: '24px',
+                  transition: theme => theme.transitions.create('width'),
+                  width: '100%',
+                  '&:focus': {
+                    width: '200px',
+                  },
+                }}
+              />
+            </Box>
+
+            <IconButton sx={{ ml: 2, color: '#000000' }}>
+              <ShoppingCartIcon />
+            </IconButton>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
@@ -158,6 +196,7 @@ function Navbar() {
         </Toolbar>
       </Container>
     </AppBar>
+    </>
   );
 }
 export default Navbar;
