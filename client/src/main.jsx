@@ -4,7 +4,7 @@ import App from './App.jsx'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Navbar from './Navbar';
 import Footer from './Footer';
-import Home from './home.jsx';
+import Home from './Home.jsx';
 import Shop from './Shop.jsx';
 import Product from './Product.jsx';
 import ContactUs from './ContactUs.jsx';
