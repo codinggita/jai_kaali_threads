@@ -14,21 +14,45 @@
     color: #FEFEFE;
     display: flex;
     justify-content: center;
-    align-items: center;
     flex-direction: column;
     width: 50%;
-    
+    padding-left: 5rem;
 }
 
 .hero-text {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
-    /* text-align: center; */
-    /* line-height: ; */
 }
 
 .bring-heading{
-    font-size: 1.vw;
+    font-size: 3.2vw;
+    line-height: 1.1;
+}
+
+.hero-text p {
+    font-size: 1.2vw;
+    line-height: 1.4;
+}
+
+.hero-button {
+    align-self: flex-start;
+    max-width: 20rem;
+    margin-top: 2rem;
+}
+
+/* trending-brands */
+.trending-brands {
+    text-align: center;
+}
+
+.trending-brands-title {
+    padding-top: 40px;
+    color: #141718;
+}
+
+.trending-brands-names {
+    display: flex;
+    justify-content: space-evenly;
+    padding-top: 16px;
 }

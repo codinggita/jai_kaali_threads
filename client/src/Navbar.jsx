@@ -50,7 +50,7 @@ function Navbar() {
           <p>30% off storewide — Limited time!</p>
         </div>
         <div className="offer-shop">
-          <p>Shop Now</p>
+          <h4>Shop Now</h4>
           <ArrowForwardOutlinedIcon/>
         </div>
       </div>
@@ -145,24 +145,7 @@ function Navbar() {
             ))}
           </Box>
 
-          <Box sx={{ flexGrow: 0 }}>
-            <Box sx={{ position: 'relative', ml: 2 }}>
-              <SearchIcon sx={{ position: 'absolute', left: 0, top: '50%', transform: 'translateY(-50%)', color: 'inherit' }} />
-              <InputBase
-                placeholder="Search…"
-                sx={{
-                  color: 'inherit',
-                  pl: '24px',
-                  transition: theme => theme.transitions.create('width'),
-                  width: '100%',
-                  '&:focus': {
-                    width: '200px',
-                  },
-                }}
-              />
-            </Box>
-
-            <IconButton sx={{ ml: 2, color: '#000000' }}>
+            <IconButton  sx={{ ml: 2, color: '#000000' }}>
               <ShoppingCartIcon />
             </IconButton>
             <Tooltip title="Open settings">
@@ -192,7 +175,6 @@ function Navbar() {
                 </MenuItem>
               ))}
             </Menu>
-          </Box>
         </Toolbar>
       </Container>
     </AppBar>

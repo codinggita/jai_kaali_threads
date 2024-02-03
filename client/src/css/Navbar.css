@@ -28,7 +28,7 @@
     justify-content: space-evenly;
 }
 
-.offer-shop p{
-    font-weight: 500;
+.offer-shop {
+    border-bottom: 1px solid;
+    cursor: pointer;
 }
-
