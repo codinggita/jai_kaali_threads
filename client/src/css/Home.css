@@ -6,7 +6,6 @@
 }
 
 .hero-image {
-    /* height: 100%; */
     width: 50%;
 }
 
@@ -55,4 +54,74 @@
     display: flex;
     justify-content: space-evenly;
     padding-top: 16px;
+}
+
+/* Banner */
+.Banner {
+    display: flex;
+    background-color: #F3F5F7;
+}
+
+.Banner-Content {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding-left: 5rem;
+}
+
+.Banner-title-header {
+    padding: 32px 0px;
+}
+
+.Banner-Button button{
+    font-size: small;
+    text-align: center;
+    border-bottom: solid;
+    border-radius: 0;
+    margin-top: 2rem;
+}
+
+/* Values */
+.Values {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.Values-cards {
+    margin: 16px 0px;
+    padding: 48px 32px;
+}
+
+.Values-cards-text p{
+    line-height: 2rem;
+}
+
+/* Footer */
+.Footer {
+    background-color: yellow;
+}
+
+.Footer-content {
+    padding: 80px 160px;
+}
+
+.Footer-content-bottombar-content {
+    padding: 32px 0px;
+}
+
+.Content {
+    display: flex;
+    
+}
+
+.Content-frame {
+    display: flex;
+    justify-content: space-between;
+    margin-left: 16px;
+    border-left: 1px solid #6C7275;
+}
+
+.Content-frame p {
+    margin-left: 16px;
 }

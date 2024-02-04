@@ -4,16 +4,17 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import CardHeader from '@mui/material/CardHeader';
 import Button from '@mui/material/Button';
-import './css/ProductCard.css';
+import './css/CategoryProductCard.css';
 import CardImage from './assets/HugeDomains_com.jpeg'
 
 // rename the name
 export default function BasicCard() {
   return (
-    <Card sx={{ minWidth: 275 }}>
-      <CardMedia className='card-media'
+    <Card sx={{ minWidth: 275, boxShadow: 'none' }}>
+      <CardMedia
         component="img"
-        height="340"
+        sx={{ objectFit: 'cover' }}
+        height="459"
         image={CardImage}
       />
       <CardHeader title="Card Header" />
