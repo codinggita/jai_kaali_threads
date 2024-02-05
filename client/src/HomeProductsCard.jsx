@@ -7,8 +7,7 @@ import Button from '@mui/material/Button';
 import './css/CategoryProductCard.css';
 import CardImage from './assets/HugeDomains_com.jpeg'
 
-// rename the name
-export default function BasicCard() {
+export default function HomeProductsCard() {
   return (
     <Card sx={{ minWidth: 275, boxShadow: 'none' }}>
       <CardMedia

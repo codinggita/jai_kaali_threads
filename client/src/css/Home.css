@@ -1,13 +1,12 @@
 /* hero-section */
 .hero-section {
     background-color: #171D28;
-    height: 820px;
     display: flex;
 }
 
-.hero-image {
+/* .hero-image {
     width: 50%;
-}
+} */
 
 .hero-start {
     color: #FEFEFE;
@@ -95,33 +94,4 @@
 
 .Values-cards-text p{
     line-height: 2rem;
-}
-
-/* Footer */
-.Footer {
-    background-color: yellow;
-}
-
-.Footer-content {
-    padding: 80px 160px;
-}
-
-.Footer-content-bottombar-content {
-    padding: 32px 0px;
-}
-
-.Content {
-    display: flex;
-    
-}
-
-.Content-frame {
-    display: flex;
-    justify-content: space-between;
-    margin-left: 16px;
-    border-left: 1px solid #6C7275;
-}
-
-.Content-frame p {
-    margin-left: 16px;
 }

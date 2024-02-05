@@ -8,6 +8,10 @@
     padding-top: 2.88rem;
 }
 
+.Product-Carousel-products {
+    margin: 12px;
+}
+
 /* Categories */
 .Categories-title {
     text-align: center;
