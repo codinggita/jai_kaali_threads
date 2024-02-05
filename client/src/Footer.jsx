@@ -1,5 +1,11 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import img1 from './assets/VISA.svg';
+import img2 from './assets/AMERICANEXPRESS.svg';
+import img3 from './assets/MASTERCARD.svg';
+import img4 from './assets/STRIPE.svg';
+import img5 from './assets/PAYPAL.svg';
+import img6 from './assets/APPLEPAY.svg';
 import './css/Footer.css';
 import { Button } from '@mui/material';
 
@@ -44,22 +50,22 @@ function Footer() {
             </div>
             <div className="Content-PaymentMethod">
               <div className="PaymentMethods">
-                {/* <img src="./assets/VISA.svg" alt="" /> */}VISA
+                <img src={img1} alt="" />
               </div>
               <div className="PaymentMethods">
-                {/* <img src="./assets/AMERICANEXPRESS.svg" alt="" /> */}AMERICANEXPRESS
+                <img src={img2} alt="" />
               </div>
               <div className="PaymentMethods">
-                {/* <img src="./assets/MASTERCARD.svg" alt="" /> */}MASTERCARD
+                <img src={img3} alt="" />
               </div>
               <div className="PaymentMethods">
-                {/* <img src="./assets/STRIPE.svg" alt="" /> */}STRIPE
+                <img src={img4} alt="" />
               </div>
               <div className="PaymentMethods">
-                {/* <img src="./assets/PAYPAL.svg" alt="" /> */}PAYPAL
+                <img src={img5} alt="" />
               </div>
               <div className="PaymentMethods">
-                {/* <img src="./assets/APPLEPAY.svg" alt="" /> */}APPLEPAY
+                <img src={img6} alt="" />
               </div>
             </div>
           </div>

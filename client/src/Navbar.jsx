@@ -14,9 +14,10 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import LocalOfferOutlinedIcon from '@mui/icons-material/LocalOfferOutlined';
 import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
+import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+import SearchIcon from '@mui/icons-material/Search';
 
 const pages = ['Home', 'Shop', 'Product', 'Contact Us'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
@@ -140,37 +141,39 @@ function Navbar() {
               </Button>
             ))}
           </Box>
-
-            <IconButton  sx={{ ml: 2, color: '#000000' }}>
-              <ShoppingCartIcon component={Link} to={`/cart`} />
+          <IconButton>
+            <SearchIcon style={{color: '#000000'}}/>
+          </IconButton>
+          <IconButton>
+            <ShoppingCartOutlinedIcon style={{color: '#000000'}}/>
+          </IconButton>
+          <Tooltip title="Open settings">
+            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+              <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
             </IconButton>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
+          </Tooltip>
+          <Menu
+            sx={{ mt: '45px' }}
+            id="menu-appbar"
+            anchorEl={anchorElUser}
+            anchorOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            keepMounted
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            open={Boolean(anchorElUser)}
+            onClose={handleCloseUserMenu}
+          >
+            {settings.map((setting) => (
+              <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                <Typography textAlign="center">{setting}</Typography>
+              </MenuItem>
+            ))}
+          </Menu>
         </Toolbar>
       </Container>
     </AppBar>
