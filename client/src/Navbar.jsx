@@ -55,7 +55,6 @@ function Navbar() {
     <AppBar position= "static" sx={{ backgroundColor: '#FEFEFE', boxShadow: 'none' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1, color: '#000000' }} />
           <Typography
             variant="h6"
             noWrap
@@ -64,14 +63,13 @@ function Navbar() {
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
+              fontFamily: 'initial',
               fontWeight: 700,
-              letterSpacing: '.3rem',
               color: '#000000',
               textDecoration: 'none',
             }}
           >
-            LOGO
+            JaiKaaliThreads
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -130,7 +128,7 @@ function Navbar() {
           >
             LOGO
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'center' }}>
             {pages.map((page) => (
               <Button
                 key={page}
@@ -144,7 +142,7 @@ function Navbar() {
           </Box>
 
             <IconButton  sx={{ ml: 2, color: '#000000' }}>
-              <ShoppingCartIcon />
+              <ShoppingCartIcon component={Link} to={`/cart`} />
             </IconButton>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>

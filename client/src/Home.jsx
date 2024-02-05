@@ -1,5 +1,5 @@
 import React from 'react';
-import HeroImage from './assets/hero_image.jpg';
+import HeroImage from './assets/Hero-image.svg';
 import Button from '@mui/material/Button';
 import HomeProductsCard from './HomeProductsCard';
 import CategoriesCard from './CategoriesCard'
@@ -11,9 +11,13 @@ import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined
 import MoneyRoundedIcon from '@mui/icons-material/MoneyRounded';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import CallOutlinedIcon from '@mui/icons-material/CallOutlined';
+import BannerImage from './assets/Banner-image.jpeg'
+import GridCard1 from './assets/GridCard1.svg';
+import GridCard2 from './assets/GridCard2.svg';
+import GridCard3 from './assets/GridCard3.svg';
+import GridCard4 from './assets/GridCard4.svg';
 import './css/Home.css';
 import './css/CategoryProductCard.css';
-import BannerImage from './assets/Banner-image.jpeg'
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -78,16 +82,16 @@ function Home() {
     <div className="Grid-Container">
       <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
         <Grid xs={6}>
-          <Item>1</Item>
+          <Item><img src={GridCard1} alt="" /></Item>
         </Grid>
         <Grid xs={6}>
-          <Item>2</Item>
+          <Item><img src={GridCard2} alt="" /></Item>
         </Grid>
         <Grid xs={6}>
-          <Item>3</Item>
+          <Item><img src={GridCard3} alt="" /></Item>
         </Grid>
         <Grid xs={6}>
-          <Item>4</Item>
+          <Item><img src={GridCard4} alt="" /></Item>
         </Grid>
       </Grid>
     </div>
