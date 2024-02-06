@@ -1,0 +1,89 @@
+/* MyAccount.css */
+
+.my-account-container {
+  margin: 20px auto;
+  width: 80%;
+}
+
+.title-section {
+  text-align: center;
+}
+
+.body-section {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.left-section {
+  width: 262px;
+  background-color: #f3f5f7;
+  padding: 20px;
+  height: 498px;
+}
+
+.avatar-section {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.avatar-section > img {
+  height: 82px;
+  width: 82px;
+}
+
+.name {
+  line-height: 32px;
+  height: 32px;
+  width: 131px;
+  margin: 0 auto;
+}
+
+.navigation-section {
+  margin-top: 20px;
+}
+
+.navigation-section p {
+  height: 42px;
+  width: 230px;
+  line-height: 42px;
+  margin-bottom: 10px;
+}
+
+.navigation-section p.selected {
+  font-weight: bold;
+}
+
+.navigation-section p:not(.selected) {
+  font-weight: normal;
+}
+
+.right-section {
+  width: 65%;
+  padding: 20px;
+}
+
+.details-section h2 {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+input {
+  height: 40px;
+  width: 707px;
+  margin-bottom: 10px;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+button.save-btn {
+  height: 40px;
+  width: 150px;
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}

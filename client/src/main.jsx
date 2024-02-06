@@ -9,6 +9,7 @@ import Shop from './Shop.jsx';
 import Product from './Product.jsx';
 import ContactUs from './ContactUs.jsx';
 import Cart from './Cart.jsx';
+import MyAccount from './MyAccount.jsx';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <>
@@ -21,6 +22,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path='/product' element={<Product/>} />
         <Route path='/contact_us' element={<ContactUs/>} />
         <Route path='/cart' element={<Cart/>} />
+        <Route path='/account-details' element={<MyAccount/>} />
       </Routes>
     <Footer/>
     </BrowserRouter>
