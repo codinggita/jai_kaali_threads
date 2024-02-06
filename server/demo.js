@@ -1,9 +1,12 @@
 const express = require('express');
+const cors = require("cors");
+require("dotenv").config();
 const mongoose = require('mongoose');
 const app = express();
 const port = 5000;
 // Middleware to parse JSON body in requests
 app.use(express.json());
+app.use(cors());
 
 // connect to MongoDB
 const uri = "mongodb+srv://deveshk28:6DsgooiaNWy3Z5iC@clustur.xvadqep.mongodb.net/?retryWrites=true&w=majority";
