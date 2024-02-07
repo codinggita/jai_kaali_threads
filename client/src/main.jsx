@@ -2,14 +2,14 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Navbar from './Navbar';
-import Footer from './Footer';
-import Home from './Home.jsx';
-import Shop from './Shop.jsx';
-import Product from './Product.jsx';
-import ContactUs from './ContactUs.jsx';
-import Cart from './Cart.jsx';
-import MyAccount from './MyAccount.jsx';
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
+import Home from './components/Home';
+import Shop from './components/Shop';
+import Product from './components/Product';
+import ContactUs from './components/ContactUs';
+import Cart from './components/Cart';
+import MyAccount from './components/MyAccount';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <>

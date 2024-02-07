@@ -1,6 +1,6 @@
 import React from 'react';
 import Stepper from './Stepper';
-import './css/Cart.css';
+import '../css/Cart.css';
 
 function Cart() {
   return (

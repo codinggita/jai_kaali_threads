@@ -4,8 +4,8 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import CardHeader from '@mui/material/CardHeader';
 import Button from '@mui/material/Button';
-import './css/CategoryProductCard.css';
-import CardImage from './assets/HugeDomains_com.jpeg'
+import '../css/CategoryProductCard.css';
+import CardImage from '../assets/HugeDomains_com.jpeg'
 
 export default function HomeProductsCard() {
   return (

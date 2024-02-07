@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require("cors");
-require("dotenv").config();
+// require("dotenv").config();
 const mongoose = require('mongoose');
 const app = express();
 const port = 5000;
@@ -409,7 +409,7 @@ app.put("/products/:productId", async (req, res) => {
 app.delete("/products/:productId", async (req, res) => {
   const productId = req.params.productId;
   try {
-    const product = await ProductCollection.findByIdAndRemove(productId);
+    const product = await ProductCollection.findByIdAndDelete(productId);
     if (!product) {
       res.status(404).json({ error: "Product not found." });
     } else {
@@ -564,7 +564,7 @@ app.patch("/reviews/:reviewId", async (req, res) => {
 app.delete("/reviews/:reviewId", async (req, res) => {
   const reviewId = req.params.reviewId;
   try {
-    const review = await ReviewCollection.findByIdAndRemove(reviewId);
+    const review = await ReviewCollection.findByIdAndDelete(reviewId);
     if (!review) {
       res.status(404).json({ error: "Review not found." });
     } else {
