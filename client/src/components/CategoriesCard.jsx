@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import Avatar from '@mui/material/Avatar';
-import CardImage from './assets/HugeDomains_com.jpeg'
+import CardImage from '../assets/HugeDomains_com.jpeg'
 
 export default function BasicCard() {
   return (
