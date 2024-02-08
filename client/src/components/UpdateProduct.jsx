@@ -8,7 +8,7 @@ function UpdateProduct({ productId, onProductUpdated }) {
   
   useEffect(() => {
     // Fetch the current product details from the backend
-    axios.get(`http://localhost:5000/products/${productId}`)
+    axios.get(`${domain}/products/${productId}`)
       .then((response) => {
         setProduct(response.data.productDetails);
         setLoading(false);
@@ -26,7 +26,7 @@ function UpdateProduct({ productId, onProductUpdated }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Send a PUT request to the backend to update the product
-    axios.put(`http://localhost:5000/products/${productId}`, product)
+    axios.put(`${domain}/products/${productId}`, product)
       .then((response) => {
         // Call the onProductUpdated callback to update the product in the parent component
         onProductUpdated(response.data.product);

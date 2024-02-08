@@ -12,7 +12,7 @@ function Product() {
 
   useEffect(() => {
     // Fetch the list of products from the backend
-    axios.get(`http://localhost:5000/products`)
+    axios.get(`${domain}/products`)
       .then((response) => {
         setProducts(response.data.products);
       })

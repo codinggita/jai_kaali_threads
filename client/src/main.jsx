@@ -10,6 +10,7 @@ import Product from './components/Product';
 import ContactUs from './components/ContactUs';
 import Cart from './components/Cart';
 import MyAccount from './components/MyAccount';
+const domain = import.meta.env.VITE_REACT_APP_DOMAIN;
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <>
@@ -23,6 +24,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path='/contact_us' element={<ContactUs/>} />
         <Route path='/cart' element={<Cart/>} />
         <Route path='/account-details' element={<MyAccount/>} />
+        <Route path='/shop' element={<Shop/>} />
       </Routes>
     <Footer/>
     </BrowserRouter>

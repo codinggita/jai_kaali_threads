@@ -4,7 +4,7 @@ import axios from 'axios';
 function DeleteProduct({ productId, onProductDeleted }) {
   const handleDeleteClick = () => {
     // Send a DELETE request to the backend to delete the specific product
-    axios.delete(`http://localhost:5000/products/${productId}`)
+    axios.delete(`${domain}/products/${productId}`)
       .then((response) => {
         // Call the onProductDeleted callback to remove the deleted product from the state in the parent component
         onProductDeleted(productId);

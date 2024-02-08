@@ -6,7 +6,7 @@ function ProductDetails({ productId }) {
 
   useEffect(() => {
     // Fetch details of the specific product from the backend
-    axios.get(`http://localhost:5000/products/${productId}`)
+    axios.get(`${domain}/products/${productId}`)
       .then((response) => {
         console.log(response.data.productDetails);
         setProduct(response.data.productDetails);
