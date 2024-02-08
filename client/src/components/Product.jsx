@@ -6,6 +6,8 @@ import UpdateProduct from './UpdateProduct';
 import ProductDetails from './ProductDetails';
 
 function Product() {
+  const domain = import.meta.env.VITE_REACT_APP_DOMAIN;
+
   const [products, setProducts] = useState([]);
   const [productId, setProductId] = useState(null);
   const [updatingProduct, setUpdatingProduct] = useState(null);

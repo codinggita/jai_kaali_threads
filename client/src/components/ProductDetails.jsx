@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 function ProductDetails({ productId }) {
+  const domain = import.meta.env.VITE_REACT_APP_DOMAIN;
+
   const [product, setProduct] = useState(null);
 
   useEffect(() => {

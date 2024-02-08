@@ -2,6 +2,8 @@ import React from 'react';
 import axios from 'axios';
 
 function DeleteProduct({ productId, onProductDeleted }) {
+  const domain = import.meta.env.VITE_REACT_APP_DOMAIN;
+
   const handleDeleteClick = () => {
     // Send a DELETE request to the backend to delete the specific product
     axios.delete(`${domain}/products/${productId}`)

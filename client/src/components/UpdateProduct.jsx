@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 function UpdateProduct({ productId, onProductUpdated }) {
+  const domain = import.meta.env.VITE_REACT_APP_DOMAIN;
+
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
 
