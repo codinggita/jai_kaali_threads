@@ -1,6 +1,6 @@
 import React from 'react';
 import '../css/Shop.css';
-import shopImage from '../assets/ShopHeaderBackground.svg';
+import shopImage from '../assets/ShopHeaderBackground.jpg';
 import { Grid, Typography, Select, MenuItem, Button } from '@mui/material'; // Importing MUI components
 import ProductCard from './ProductCard'; // Assuming ProductCard is a custom component for product display
 

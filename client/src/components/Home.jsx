@@ -1,5 +1,5 @@
 import React from 'react';
-import HeroImage from '../assets/Hero-image.svg';
+import HeroImage from '../assets/Hero-image.jpg';
 import Button from '@mui/material/Button';
 import HomeProductsCard from './HomeProductsCard';
 import CategoriesCard from './CategoriesCard'
@@ -12,10 +12,10 @@ import MoneyRoundedIcon from '@mui/icons-material/MoneyRounded';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import CallOutlinedIcon from '@mui/icons-material/CallOutlined';
 import BannerImage from '../assets/Banner-image.jpeg'
-import GridCard1 from '../assets/GridCard1.svg';
-import GridCard2 from '../assets/GridCard2.svg';
-import GridCard3 from '../assets/GridCard3.svg';
-import GridCard4 from '../assets/GridCard4.svg';
+import GridCard1 from '../assets/GridCard1.jpg';
+import GridCard2 from '../assets/GridCard2.jpg';
+import GridCard3 from '../assets/GridCard3.jpg';
+import GridCard4 from '../assets/GridCard4.jpg';
 import '../css/Home.css';
 import '../css/CategoryProductCard.css';
 
