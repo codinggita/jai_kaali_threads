@@ -19,7 +19,7 @@ function Product() {
         setProducts(response.data.products);
       })
       .catch((error) => {
-        console.log(error);
+        console.error("Error fetching products:", error);
       });
   }, []);
 

@@ -27,15 +27,13 @@ const Shop = () => {
                     {/* Add more menu items for other categories */}
                 </Select>
             </div>
-            <div className="product-list">
-                <Grid container spacing={2}>
-                    {/* Render multiple ProductCards here */}
-                    <ProductCard />
-                    <ProductCard />
-                    <ProductCard />
-                    {/* Add more ProductCards as needed */}
-                </Grid>
-            </div>
+            <Grid container spacing={4}>
+                <Grid item xs={12} sm={6}><ProductCard /></Grid>
+                <Grid item xs={12} sm={6}><ProductCard /></Grid>
+                <Grid item xs={12} sm={6}><ProductCard /></Grid>
+                <Grid item xs={12} sm={6}><ProductCard /></Grid>
+                {/* Add more ProductCards as needed */}
+            </Grid>
             <Button variant="contained" className="show-more-button">Show More</Button>
         </div>
     </>

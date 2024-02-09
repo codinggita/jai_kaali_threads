@@ -10,7 +10,6 @@ function ProductDetails({ productId }) {
     // Fetch details of the specific product from the backend
     axios.get(`${domain}/products/${productId}`)
       .then((response) => {
-        console.log(response.data.productDetails);
         setProduct(response.data.productDetails);
       })
       .catch((error) => {
