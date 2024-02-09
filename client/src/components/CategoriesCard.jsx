@@ -5,7 +5,7 @@ import CardHeader from '@mui/material/CardHeader';
 import Avatar from '@mui/material/Avatar';
 import CardImage from '../assets/HugeDomains_com.jpeg'
 
-export default function BasicCard() {
+export default function CategoriesCard() {
   return (
     <Card sx={{ minWidth: 275, boxShadow: 'none' }}>
         <Box sx={{ display: 'flex', justifyContent: 'center' }}>

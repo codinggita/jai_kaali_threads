@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import img1 from '../assets/VISA.svg';
+import img1 from '../assets/visa.svg';
 import img2 from '../assets/AMERICANEXPRESS.svg';
 import img3 from '../assets/MASTERCARD.svg';
 import img4 from '../assets/STRIPE.svg';

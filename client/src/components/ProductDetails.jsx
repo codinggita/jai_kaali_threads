@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 function ProductDetails({ productId }) {
+  const domain = import.meta.env.VITE_REACT_APP_DOMAIN;
+
   const [product, setProduct] = useState(null);
 
   useEffect(() => {
     // Fetch details of the specific product from the backend
-    axios.get(`http://localhost:5000/products/${productId}`)
+    axios.get(`${domain}/products/${productId}`)
       .then((response) => {
-        console.log(response.data.productDetails);
         setProduct(response.data.productDetails);
       })
       .catch((error) => {

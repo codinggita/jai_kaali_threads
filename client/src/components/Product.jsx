@@ -6,18 +6,20 @@ import UpdateProduct from './UpdateProduct';
 import ProductDetails from './ProductDetails';
 
 function Product() {
+  const domain = import.meta.env.VITE_REACT_APP_DOMAIN;
+
   const [products, setProducts] = useState([]);
   const [productId, setProductId] = useState(null);
   const [updatingProduct, setUpdatingProduct] = useState(null);
 
   useEffect(() => {
     // Fetch the list of products from the backend
-    axios.get(`http://localhost:5000/products`)
+    axios.get(`${domain}/products`)
       .then((response) => {
         setProducts(response.data.products);
       })
       .catch((error) => {
-        console.log(error);
+        console.error("Error fetching products:", error);
       });
   }, []);
 

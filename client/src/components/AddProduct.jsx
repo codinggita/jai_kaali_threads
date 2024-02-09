@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 function AddProduct() {
+  const domain = import.meta.env.VITE_REACT_APP_DOMAIN;
+
   const [product, setProduct] = useState({ 
     name: '',
     price: '',
@@ -16,7 +18,7 @@ function AddProduct() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post('http://localhost:5000/products', product)
+    axios.post(`${domain}/products`, product)
       .then((response) => {
         console.log(response.data);
       })
