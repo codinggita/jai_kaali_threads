@@ -1,26 +1,25 @@
 import React from 'react';
-import { Card, CardHeader, CardMedia, CardContent, CardActions, Typography, Button } from '@mui/material';
+import { Link } from 'react-router-dom';
+import { Card, CardHeader, CardMedia, CardContent, Typography } from '@mui/material';
 
-const ProductCard = () => {
+const ProductCard = ({ product }) => {
     return (
-        <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-            <CardMedia
-                component="img"
-                sx={{ width: '100%', height: 200 }} // Adjusted size
-                image="https://via.placeholder.com/548x349" // Placeholder image URL
-                alt="Product"
-            />
-            <CardContent sx={{ flex: '1 0 auto' }}>
-                <CardHeader title="Product Title" subheader="Product Subtitle" />
-                <Typography variant="body2" color="text.secondary">
-                    Product description goes here. You can add more details about the product.
-                </Typography>
-            </CardContent>
-            <CardActions>
-                <Button size="small">Action 1</Button>
-                <Button size="small">Action 2</Button>
-            </CardActions>
-        </Card>
+        <Link to={`/product/${product._id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+            <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+                <CardMedia
+                    component="img"
+                    sx={{ width: '100%', height: 200 }} // Adjusted size
+                    image={product.imgUrl} // Use product image URL
+                    alt={product.name} // Use product name as alt text
+                />
+                <CardContent sx={{ flex: '1 0 auto' }}>
+                    <CardHeader title={product.name} subheader={product.category} />
+                    <Typography variant="body2" color="text.secondary">
+                        {product.description}
+                    </Typography>
+                </CardContent>
+            </Card>
+        </Link>
     );
 }
 

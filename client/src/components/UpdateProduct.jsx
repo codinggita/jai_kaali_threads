@@ -1,16 +1,19 @@
 import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { TextField, Button, Box, Container, Typography } from '@mui/material';
 
-function UpdateProduct({ productId, onProductUpdated }) {
+function UpdateProduct() {
   const domain = import.meta.env.VITE_REACT_APP_DOMAIN;
+  const navigate = useNavigate();
+  const { productId } = useParams();
 
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  
   useEffect(() => {
-    // Fetch the current product details from the backend
-    axios.get(`${domain}/products/${productId}`)
+    axios.get(`${domain}products/${productId}`)
       .then((response) => {
         setProduct(response.data.productDetails);
         setLoading(false);
@@ -22,16 +25,18 @@ function UpdateProduct({ productId, onProductUpdated }) {
   }, [productId]);
 
   const handleChange = (e) => {
+    let value = e.target.value;
+    if (e.target.name === 'inStock') {
+      value = value.toLowerCase() === 'yes' ? true : false;
+    }
     setProduct({ ...product, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Send a PUT request to the backend to update the product
-    axios.put(`${domain}/products/${productId}`, product)
-      .then((response) => {
-        // Call the onProductUpdated callback to update the product in the parent component
-        onProductUpdated(response.data.product);
+    axios.put(`${domain}products/update-product/${productId}`, product)
+      .then(() => {
+        navigate('/shop');
       })
       .catch((error) => {
         console.log(error);
@@ -43,34 +48,30 @@ function UpdateProduct({ productId, onProductUpdated }) {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-    {product && (
-    <>   
-        <div>
-            <label>Name:</label>
-            <input type="text" name="name" value={product.name} onChange={handleChange} required />
-        </div>
-        <div>
-            <label>Price:</label>
-            <input type="text" name="price" value={product.price} onChange={handleChange} required />
-        </div>
-        <div>
-            <label>Description:</label>
-            <input type="text" name="description" value={product.description} onChange={handleChange} required />
-        </div>
-        <div>
-            <label>Category:</label>
-            <input type="text" name="category" value={product.category} onChange={handleChange} required />
-        </div>
-        <div>
-            <label>In Stock:</label>
-            <input type="text" name="inStock" value={product.inStock} onChange={handleChange} required />
-        </div>
-      
-        <button type="submit">Submit Changes</button>
-    </>
-    )}
-    </form>
+    <Container maxWidth="sm">
+      <Typography variant="h4" align="center" gutterBottom>Update Product</Typography>
+      <form onSubmit={handleSubmit}>
+        <Box mb={2}>
+          <TextField fullWidth label="ImageUrl" name="imgUrl" value={product.imgUrl} onChange={handleChange} />
+        </Box>
+        <Box mb={2}>
+          <TextField fullWidth label="Name" name="name" value={product.name} onChange={handleChange} required />
+        </Box>
+        <Box mb={2}>
+          <TextField fullWidth label="Price" name="price" value={product.price} onChange={handleChange} required />
+        </Box>
+        <Box mb={2}>
+          <TextField fullWidth label="Description" name="description" value={product.description} onChange={handleChange} required />
+        </Box>
+        <Box mb={2}>
+          <TextField fullWidth label="Category" name="category" value={product.category} onChange={handleChange} required />
+        </Box>
+        <Box mb={2}>
+          <TextField fullWidth label="InStock" name="inStock" value={product.inStock} onChange={handleChange} required />
+        </Box>
+        <Button variant="contained" color="primary" type="submit">Update Product</Button>
+      </form>
+    </Container>
   );
 }
 
