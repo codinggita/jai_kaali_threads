@@ -6,8 +6,8 @@ Video Demo:
 
 
 ##Mern_Assignment
-Netlify link: https://jai-kaali-threads.netlify.app/
-Render link: https://jaikaalithreads.onrender.com
+Frontend link: https://jai-kaali-threads.onrender.com
+Backend link: https://jaikaalithreads.onrender.com
 
 Postman Documentation: https://documenter.getpostman.com/view/32352885/2s9YymJ5Ls
 

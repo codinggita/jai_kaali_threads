@@ -1,7 +1,7 @@
-import React from 'react';
-import HeroImage from '../assets/Hero-image.svg';
+import React, { useState, useEffect } from 'react';
+import HeroImage from '../assets/Hero-image.jpg';
 import Button from '@mui/material/Button';
-import HomeProductsCard from './HomeProductsCard';
+import ProductCard from './ProductCard';
 import CategoriesCard from './CategoriesCard'
 import Grid from '@mui/material/Unstable_Grid2';
 import { styled } from '@mui/material/styles';
@@ -12,10 +12,13 @@ import MoneyRoundedIcon from '@mui/icons-material/MoneyRounded';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import CallOutlinedIcon from '@mui/icons-material/CallOutlined';
 import BannerImage from '../assets/Banner-image.jpeg'
-import GridCard1 from '../assets/GridCard1.svg';
-import GridCard2 from '../assets/GridCard2.svg';
-import GridCard3 from '../assets/GridCard3.svg';
-import GridCard4 from '../assets/GridCard4.svg';
+import GridCard1 from '../assets/GridCard1.jpg';
+import GridCard2 from '../assets/GridCard2.jpg';
+import GridCard3 from '../assets/GridCard3.jpg';
+import GridCard4 from '../assets/GridCard4.jpg';
+import { Carousel } from 'react-responsive-carousel';
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import axios from 'axios';
 import '../css/Home.css';
 import '../css/CategoryProductCard.css';
 
@@ -28,6 +31,29 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 function Home() {
+  const domain = import.meta.env.VITE_REACT_APP_DOMAIN;
+  const [products, setProducts] = useState([]);
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  useEffect(() => {
+    // Fetch the list of products from the backend
+    axios.get(`${domain}products`)
+    .then((response) => {
+        setProducts(response.data.products);
+    })
+    .catch((error) => {
+        console.error("Error fetching products:", error);
+    });
+  }, []);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prevSlide) => (prevSlide + 1) % (products.length / 4));
+    }, 3000); // Change slide every 3 seconds
+
+    return () => clearInterval(timer); // Clean up timer on unmount
+  }, [products]);
+
   return (
     <>
     <div className='hero-section'>
@@ -56,18 +82,14 @@ function Home() {
       </div>
     </div>
     <div className="Product-Carousel">
-      <div className="Product-Carousel-title">
-        <h2>Just In</h2>
+        <Carousel selectedItem={currentSlide} infinite={true} autoPlay={true} autoPlaySpeed={3000}>
+          {products.map((product, index) => (
+            <div key={index} className="Product-Carousel-products">
+              <ProductCard product={product} />
+            </div>
+          ))}
+        </Carousel>
       </div>
-      <div className="Product-Carousel-product-cards">
-        <div className="Product-Carousel-products"><HomeProductsCard /></div>
-        <div className="Product-Carousel-products"><HomeProductsCard /></div>
-        <div className="Product-Carousel-products"><HomeProductsCard /></div>
-        <div className="Product-Carousel-products"><HomeProductsCard /></div>
-        <div className="Product-Carousel-products"><HomeProductsCard /></div>
-        <div className="Product-Carousel-products"><HomeProductsCard /></div>
-      </div>
-    </div>
     <div className="Categories">
       <div className="Categories-title">
         <h2>Shop By Categories</h2>

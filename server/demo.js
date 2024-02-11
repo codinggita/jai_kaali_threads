@@ -42,6 +42,9 @@ const UsersSchema = new mongoose.Schema({
 const UsersCollection = mongoose.model("Users", UsersSchema);
 
 const ProductSchema = new mongoose.Schema({
+  imgUrl: {
+    type: String
+  },
   name: {
     type: String,
     required: true
@@ -371,7 +374,7 @@ app.get("/products/:productId", async (req, res) => {
 });
 
 // Add a New Product
-app.post("/products", async (req, res) => {
+app.post("/products/add-product", async (req, res) => {
   const { name, category, price, description } = req.body;
   if (!name || !category || !price || !description) {
     res.status(400).json({ error: "Incomplete data. Please provide name, category, price, and description." });
@@ -387,7 +390,7 @@ app.post("/products", async (req, res) => {
 });
 
 // Update Product Details
-app.put("/products/:productId", async (req, res) => {
+app.put("/products/update-product/:productId", async (req, res) => {
   const productId = req.params.productId;
   const updatedProductData = req.body;
   if (!updatedProductData) {

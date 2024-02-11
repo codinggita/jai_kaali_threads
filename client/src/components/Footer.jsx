@@ -1,11 +1,11 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import img1 from '../assets/visa.svg';
-import img2 from '../assets/AMERICANEXPRESS.svg';
-import img3 from '../assets/MASTERCARD.svg';
-import img4 from '../assets/STRIPE.svg';
-import img5 from '../assets/PAYPAL.svg';
-import img6 from '../assets/APPLEPAY.svg';
+import img1 from '../assets/visa.jpg';
+import img2 from '../assets/AMERICANEXPRESS.jpg';
+import img3 from '../assets/MASTERCARD.jpg';
+import img4 from '../assets/STRIPE.jpg';
+import img5 from '../assets/PAYPAL.jpg';
+import img6 from '../assets/APPLEPAY.jpg';
 import '../css/Footer.css';
 import { Button } from '@mui/material';
 
