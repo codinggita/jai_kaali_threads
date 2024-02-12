@@ -17,10 +17,13 @@ import GridCard2 from '../assets/GridCard2.jpg';
 import GridCard3 from '../assets/GridCard3.jpg';
 import GridCard4 from '../assets/GridCard4.jpg';
 import { Carousel } from 'react-responsive-carousel';
-import "react-responsive-carousel/lib/styles/carousel.min.css";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick-theme.css";
 import axios from 'axios';
 import '../css/Home.css';
 import '../css/CategoryProductCard.css';
+import HomeProductsCard from './HomeProductsCard';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -33,7 +36,42 @@ const Item = styled(Paper)(({ theme }) => ({
 function Home() {
   const domain = import.meta.env.VITE_REACT_APP_DOMAIN;
   const [products, setProducts] = useState([]);
-  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500, // You can adjust this value to make the transition faster
+    slidesToShow: 4,
+    slidesToScroll: 4,
+    autoplay: true,
+    autoplaySpeed: 2000, // Adjust this value to change the delay between each auto-transition
+    arrows: true,
+    prevArrow: <SamplePrevArrow />,
+    nextArrow: <SampleNextArrow />,
+  };
+  
+  // Define your custom arrow components
+  function SamplePrevArrow(props) {
+    const { className, style, onClick } = props;
+    return (
+      <div
+        className={className}
+        style={{ ...style, display: "block", color: "black" }}
+        onClick={onClick}
+      />
+    );
+  }
+  
+  function SampleNextArrow(props) {
+    const { className, style, onClick } = props;
+    return (
+      <div
+        className={className}
+        style={{ ...style, display: "block", color: "black" }}
+        onClick={onClick}
+      />
+    );
+  }  
 
   useEffect(() => {
     // Fetch the list of products from the backend
@@ -45,14 +83,6 @@ function Home() {
         console.error("Error fetching products:", error);
     });
   }, []);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentSlide((prevSlide) => (prevSlide + 1) % (products.length / 4));
-    }, 3000); // Change slide every 3 seconds
-
-    return () => clearInterval(timer); // Clean up timer on unmount
-  }, [products]);
 
   return (
     <>
@@ -82,13 +112,13 @@ function Home() {
       </div>
     </div>
     <div className="Product-Carousel">
-        <Carousel selectedItem={currentSlide} infinite={true} autoPlay={true} autoPlaySpeed={3000}>
+        <Slider {...settings}>
           {products.map((product, index) => (
             <div key={index} className="Product-Carousel-products">
-              <ProductCard product={product} />
+              <HomeProductsCard product={product} />
             </div>
           ))}
-        </Carousel>
+        </Slider>
       </div>
     <div className="Categories">
       <div className="Categories-title">
