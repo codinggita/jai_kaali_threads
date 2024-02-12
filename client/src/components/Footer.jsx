@@ -19,10 +19,10 @@ function Footer() {
               <h2>JaiKaaliThreads.</h2>
             </div>
             <div className="address">
-              <p>43111 Hai Trieu street,</p>
-              <p>District 1, HCMC</p>
-              <p>Vietnam</p>
-              <p>84-756-3237</p>
+              <p>MS, Opposite to check post no.</p>
+              <p>2 Ordinance Factory</p>
+              <p>Jawaharnagar Bhandara-441906, 441906</p>
+              <p>7020343561</p>
             </div>
           </div>
           <div className="Frame">

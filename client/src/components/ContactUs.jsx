@@ -31,7 +31,7 @@ const ContactUs = () => {
               <PhoneIcon fontSize="large" />
             </IconButton>
             <Typography variant="h6" gutterBottom>Contact Us</Typography>
-            <Typography variant="body1">+84 234 567 890</Typography>
+            <Typography variant="body1">7020343561</Typography>
           </Paper>
         </Grid>
         <Grid item xs={4}>
@@ -40,7 +40,7 @@ const ContactUs = () => {
               <EmailIcon fontSize="large" />
             </IconButton>
             <Typography variant="h6" gutterBottom>Email</Typography>
-            <Typography variant="body1">hello@3legant.com</Typography>
+            <Typography variant="body1">devk28061994@gmail.com</Typography>
           </Paper>
         </Grid>
       </Grid>
