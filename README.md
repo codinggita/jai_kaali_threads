@@ -8,7 +8,7 @@
 
 ## Figma Design: https://www.figma.com/file/MwnqbubChFWYZSwmyRv1qM/JaiKaaliThreads?type=design&node-id=0%3A1&mode=design&t=zC6x7RV1Jmr5l2xU-1
 
-## Video Demo: https://github.com/DeveshKundu/jai_kaali_threads/assets/125677754/04cf4622-8f38-4b29-975c-8ad9237ce892
+## Video Demo: <video src="https://github.com/DeveshKundu/jai_kaali_threads/assets/125677754/04cf4622-8f38-4b29-975c-8ad9237ce892"></video>
 
 ### Problem Statement
 In the ever-evolving retail landscape, JaiKaaliThreads aims to bridge the gap between traditional local cloth businesses 

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import HeroImage from '../assets/Hero-image.jpg';
 import Button from '@mui/material/Button';
 import CategoriesCard from './CategoriesCard'
@@ -34,6 +35,7 @@ const Item = styled(Paper)(({ theme }) => ({
 function Home() {
   const domain = import.meta.env.VITE_REACT_APP_DOMAIN;
   const [products, setProducts] = useState([]);
+  const navigate = useNavigate();
 
   const categories = [
     { name: 'Men', image: 'https://i.pinimg.com/originals/b1/a2/a0/b1a2a01103554b4d7a008ce7299dccfa.jpg' },
@@ -101,7 +103,7 @@ function Home() {
           <p>Find yours with our collection and more.</p>
         </div>
         <div  className='hero-button'>
-        <Button variant="contained" style={{padding: '10px 40px'}}>Shopping Now</Button>
+        <Button onClick={navigate('/shop')} variant="contained" style={{padding: '10px 40px'}}>Shopping Now</Button>
         </div>
       </div>
     </div>
