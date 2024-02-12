@@ -196,11 +196,6 @@ app.listen(port, () => {
 // Sign Up (POST)
 // Revisit
 app.post("/signup", async (req, res) => {
-  // Import the required libraries
-  const bcrypt = require("bcrypt");
-  const validator = require("validator");
-  const nodemailer = require("nodemailer");
-
   // Implement logic to create a new user account
   const { username, email, password } = req.body;
 
@@ -221,10 +216,6 @@ app.post("/signup", async (req, res) => {
   }
 
   try {
-    // hash the password
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
-
     // check for existence in db
     const existingUser = await UsersCollection.findOne({ email });
     
@@ -235,8 +226,6 @@ app.post("/signup", async (req, res) => {
     // create a new user object
     const newUser = new UsersCollection({ username, email, password });
     await newUser.save();
-
-    // send confirmation email
 
     res.json({ success: true, message: 'User registered successfully!' });
   } catch (error) {
@@ -284,9 +273,6 @@ app.post("/login", (req, res) => {
     res.status(401).json({ error: "Invalid credentials. Please check your username and password." });
     return;
   }
-
-  // Generate a token or session (you may want to use a library for this)
-  const token = generateToken(); // Replace with your token generation logic
 
   res.json({ success: true, message: "Login successful!", token });
 });
@@ -339,7 +325,6 @@ app.get("/products", async (req, res) => {
     const products = await ProductCollection.find({});
     res.json({ products });
   } catch (error) {
-    console.error("Error fetching products:", error);
     res.status(500).send(error);
   }
 });

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import HeroImage from '../assets/Hero-image.jpg';
 import Button from '@mui/material/Button';
-import ProductCard from './ProductCard';
 import CategoriesCard from './CategoriesCard'
 import Grid from '@mui/material/Unstable_Grid2';
 import { styled } from '@mui/material/styles';
@@ -16,7 +16,6 @@ import GridCard1 from '../assets/GridCard1.jpg';
 import GridCard2 from '../assets/GridCard2.jpg';
 import GridCard3 from '../assets/GridCard3.jpg';
 import GridCard4 from '../assets/GridCard4.jpg';
-import { Carousel } from 'react-responsive-carousel';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
@@ -36,15 +35,23 @@ const Item = styled(Paper)(({ theme }) => ({
 function Home() {
   const domain = import.meta.env.VITE_REACT_APP_DOMAIN;
   const [products, setProducts] = useState([]);
+  const navigate = useNavigate();
+
+  const categories = [
+    { name: 'Men', image: 'https://i.pinimg.com/originals/b1/a2/a0/b1a2a01103554b4d7a008ce7299dccfa.jpg' },
+    { name: 'Women', image: 'https://i.pinimg.com/564x/94/da/38/94da38c644d6568b9e075a5e97763c12.jpg' },
+    { name: 'Children', image: 'https://i.pinimg.com/564x/e1/29/a3/e129a3cc46172fd762d2f895dc997d65.jpg' },
+    { name: 'Unisex', image: 'https://i.pinimg.com/564x/ae/83/b0/ae83b01d7a0bf94513728b53f5bb2884.jpg' },
+  ];  
 
   const settings = {
     dots: true,
     infinite: true,
-    speed: 500, // You can adjust this value to make the transition faster
+    speed: 400,
     slidesToShow: 4,
     slidesToScroll: 4,
     autoplay: true,
-    autoplaySpeed: 2000, // Adjust this value to change the delay between each auto-transition
+    autoplaySpeed: 2000,
     arrows: true,
     prevArrow: <SamplePrevArrow />,
     nextArrow: <SampleNextArrow />,
@@ -96,7 +103,7 @@ function Home() {
           <p>Find yours with our collection and more.</p>
         </div>
         <div  className='hero-button'>
-        <Button variant="contained" style={{padding: '10px 40px'}}>Shopping Now</Button>
+        <Button onClick={navigate('/shop')} variant="contained" style={{padding: '10px 40px'}}>Shopping Now</Button>
         </div>
       </div>
     </div>
@@ -105,11 +112,14 @@ function Home() {
         <h4>Trending Brands</h4>
       </div>
       <div className="trending-brands-names">
-        <div className="trending-brands-logos">logo1</div>
-        <div className="trending-brands-logos">logo2</div>
-        <div className="trending-brands-logos">logo3</div>
-        <div className="trending-brands-logos">logo4</div>
+        <div className="trending-brands-logos">
+          <img src="https://t1.gstatic.com/images?q=tbn:ANd9GcSjeyT4_WqSO8d04PhY9u5OxBSWyyw5-jLF3TWwBoC1z5z5FGAG" alt="" style={{ maxWidth: '200px', maxHeight: '200px' }} />
+        </div>
+        <div className="trending-brands-logos"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/CK_Calvin_Klein_logo.svg/821px-CK_Calvin_Klein_logo.svg.png" alt="" style={{ maxWidth: '200px', maxHeight: '200px' }} /></div>
+        <div className="trending-brands-logos"><img src="https://i.pinimg.com/originals/9f/6f/08/9f6f08d9ca171e43ea8412ea4d67fa69.png" alt="" style={{ maxWidth: '200px', maxHeight: '200px' }}/></div>
+        <div className="trending-brands-logos"><img src="https://franchiseindia.s3.ap-south-1.amazonaws.com/uploads/news/fi/aurelia1000x562-ae3d99a8bf.gif" alt="" style={{ maxWidth: '200px', maxHeight: '200px' }}/></div>
       </div>
+
     </div>
     <div className="Product-Carousel">
         <Slider {...settings}>
@@ -125,10 +135,11 @@ function Home() {
         <h2>Shop By Categories</h2>
       </div>
       <div className="Categories-names">
-        <div className="Category"><CategoriesCard/></div>
-        <div className="Category"><CategoriesCard/></div>
-        <div className="Category"><CategoriesCard/></div>
-        <div className="Category"><CategoriesCard/></div>
+        {categories.map((category) => (
+          <div className="Category" key={category.name}>
+            <CategoriesCard category={category} />
+          </div>
+        ))}
       </div>
     </div>
     <div className="Grid-Container">

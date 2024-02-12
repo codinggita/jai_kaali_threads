@@ -1,19 +1,43 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import { Box, Typography, TextField, Button, Grid, Link, IconButton } from '@mui/material';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import image from "../assets/LogIn.jpg";
 
-const LogIn = () => {
-  const [showPassword, setShowPassword] = useState(false);
+const LogIn = ({ onLogin }) => {
+  const domain = import.meta.env.VITE_REACT_APP_DOMAIN;
+  const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(true);
 
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
   };
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    axios.post(`${domain}login`, {
+      username: event.target.username.value,
+      password: event.target.password.value,
+    })
+    .then((response) => {
+      if (response.data.success) {
+        onLogin(response.data.token);
+      } else {
+        // Handle login failure...
+      }
+    })
+    .catch((error) => {
+      console.error('Error logging in:', error);
+    });
+  };
+
   return (
-    <Grid container>
-      <Grid item xs={6}>
+    <form onSubmit={handleSubmit}>
+    <Grid container sx={{ display: 'flex', flexDirection: 'row', height: '100vh' }}>
+      <Grid item xs={6} sx={{ overflow: 'hidden' }}>
         <Box sx={{ position: 'relative', height: '100vh' }}>
           <img src={image} alt="Logo" style={{ width: '100%', height: '100%' }} />
           <Typography variant="h4" component="div" align="center" gutterBottom sx={{ position: 'absolute', top: '10%', color: 'white', width: '100%' }}>
@@ -21,7 +45,7 @@ const LogIn = () => {
           </Typography>
         </Box>
       </Grid>
-      <Grid item xs={6}>
+      <Grid item xs={6} sx={{ overflowY: 'auto' }}>
         <Box sx={{ p: 2, display: 'flex', flexDirection: 'column', height: '100vh', justifyContent: 'center' }}>
           <Typography variant="h4" component="div" align="center" gutterBottom>
             Log In
@@ -50,10 +74,13 @@ const LogIn = () => {
           <Typography variant="body2" component="div" align="right" gutterBottom>
             <Link href="/forgot-password" color="secondary">Forgot Password?</Link>
           </Typography>
-          <Button variant="contained" fullWidth size="large" sx={{ mt: 2, bgcolor: 'black', color: 'white', '&:hover': {backgroundColor: 'black'}, }}>Log In</Button>
+          <Button type='submit' onClick={navigate('/home')} variant="contained" fullWidth size="large" sx={{ mt: 2, bgcolor: 'black', color: 'white', '&:hover': {backgroundColor: 'black'}, }}>
+            Log In
+          </Button>
         </Box>
       </Grid>
     </Grid>
+    </form>
   );
 };
 
