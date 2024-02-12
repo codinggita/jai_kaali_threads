@@ -39,9 +39,9 @@ function App() {
         <Route path="/contactus" element={<ContactUs />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/account-details" element={<MyAccount />} />
-        <Route path="/*" element={<p>You are on wrong route.</p>} />
         <Route path="/login" element={<LogIn />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/*" element={<Home/>} />
       </Routes>
       <Footer />
         {/* <Routes>
